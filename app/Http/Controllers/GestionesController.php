@@ -72,6 +72,7 @@ class GestionesController extends Controller
                 $gestion->id_tipo_gestion=$request->tipo_gestion;
                 $gestion->save();
                 $planSeleccionado=$request->plan;
+                $planSeleccionado_activo=$request->plan_activo;
             
                 $plan=Plan::all();
                 foreach($plan as $carreras){
@@ -91,6 +92,12 @@ class GestionesController extends Controller
                             $gestion->desc='Id del Nuevo Registro: '.$gestion->id.' con el plan_gestion: '.$plan_gestion->planes->nombre_plan.' Plan_Activo: '.$plan_gestion->activo;
                             $gestion->action=6;
                         event(new GestionEvent($gestion));
+
+                        if(in_array($carreras->id,$planSeleccionado_activo))  
+                            $plan_gestion->activo_plan="SI";
+                        else
+                            $plan_gestion->activo_plan="NO";
+                            $plan_gestion->save();
                     }
                 }
                 return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Gestión Creada con Exito!!','alert-type'=>'success']);
@@ -109,7 +116,7 @@ class GestionesController extends Controller
     {
 
         $gestionModificar=Gestion::findorfail($id);
-        $planes=Plan::join('plan_gestion_unidades','plan_gestion_unidades.id_plan','=','planes.id')->where('plan_gestion_unidades.id_gestion',$id)->select('planes.nombre_plan','planes.cod_plan','plan_gestion_unidades.activo','planes.id')->get();
+        $planes=Plan::join('plan_gestion_unidades','plan_gestion_unidades.id_plan','=','planes.id')->where('plan_gestion_unidades.id_gestion',$id)->select('planes.nombre_plan','planes.cod_plan','plan_gestion_unidades.activo','plan_gestion_unidades.activo_plan','planes.id')->get();
         $tipo_gestiones=Tipo_gestion::pluck('nombre_tipo_gestion','id');
         $gestionModificar->each(function($gestionModificar){
             $gestionModificar->tipo_gestiones;
@@ -138,6 +145,7 @@ class GestionesController extends Controller
             
             $planModificar=Plan_gestion_unidad::where('id_gestion','=',$gestionModif->id)->get();
             $planes=$request->plan;
+            $planes_activo=$request->plan_activo;
             foreach($planModificar as $plan){
                 if(in_array($plan->id_plan,$planes)){
                     $plan->activo='SI';
@@ -150,7 +158,12 @@ class GestionesController extends Controller
                     $gestionModif->action=7;
                     event(new GestionEvent($gestionModif));
                 }
-                    $plan->save();             
+                if(in_array($plan->id_plan,$planes_activo)){
+                    $plan->activo_plan='SI';
+                }else{
+                    $plan->activo_plan='NO';
+                }
+                $plan->save();             
             }
             return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Los cambios fueron guardados!!','alert-type'=>'success']);
         }else{

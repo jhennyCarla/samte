@@ -48,6 +48,7 @@
 									<th>CODIGO PLAN</th>
 									<th>PLAN</th>
 									<th>HABILITAR PLAN</th>
+									<th>HABILITAR PLAN EDICIÓN</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -56,7 +57,8 @@
 									<td class="text-center">{{ ++$key }}</td>
 									<td>{{ $plan->cod_plan }}</td>
 									<td>{{ $plan->nombre_plan }}</td>
-									<td>{!! Form::checkbox('plan[]',$plan->id) !!}</td>
+									<td class="text-center">{!! Form::checkbox('plan[]',$plan->id) !!}</td>
+									<td class="text-center">{!! Form::checkbox('plan_activo[]',$plan->id) !!}</td>
 								</tr>
 								@endforeach
 							</tbody> 
@@ -71,4 +73,5 @@
 		</div>
 	</div>
 </div>
+
 @endsection

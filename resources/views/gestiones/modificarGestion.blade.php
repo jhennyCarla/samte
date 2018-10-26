@@ -57,17 +57,25 @@
 						<th class="table-info">Nro</th>
 						<th class="table-info">Cod PLAN</th>
 						<th class="table-info">PLAN</th>
-						<th class="table-info">Habilitar Plan</th>
+						<th class="table-info">HABILITAR PLAN</th>
+						<th class="table-info">HABILITAR EDICIÓN PLAN</th>
 						@foreach($planes as $key=>$plan)
 						<tr>
 							<td>{{ ++$key }}</td>
 							<td>{{ $plan->cod_plan }}</td>
 							<td>{{ $plan->nombre_plan }}</td>
-							<td>
+							<td class="text-center">
 							@if($plan->activo =='SI')
 								{{ Form::checkbox('plan[]',$plan->id,true) }}
 							@else
 								{{ Form::checkbox('plan[]',$plan->id) }}	
+							@endif
+							</td>
+							<td class="text-center">
+							@if($plan->activo_plan =='SI')
+								{{ Form::checkbox('plan_activo[]',$plan->id,true) }}
+							@else
+								{{ Form::checkbox('plan_activo[]',$plan->id) }}	
 							@endif
 							</td>
 						</tr>
