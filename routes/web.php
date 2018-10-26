@@ -55,7 +55,7 @@ Route::get('examen_grado/adminOpciones','Examen_GradoController@adminOpciones')-
 Route::get('examen_grado/imprimirListas','Examen_GradoController@imprimirListas')->name('examenGrado.imprimirListas');
 Route::get('examen_grado/reportes','Examen_GradoController@reportes')->name('examenGrado.reportes');
 	
-Route::get('examenGrado/subir_script_inst_tit','ScriptInsTitEgController@subirScriptInscritosTitulacion')->name('examenGrado.scriptInsEg');
+Route::get('examenGrado/subir_script','ScriptController@subirScriptEg')->name('examenGrado.subirScript');
 
 Route::get('examenGrado/subir_script_pagaron_insc','ScriptPagaronInsEgController@subirScriptPagaronEg');
 Route::post('examenGrado/importarScriptInsPagaronEg','ScriptPagaronInsEgController@importPagEgScript')->name('importPagScript');

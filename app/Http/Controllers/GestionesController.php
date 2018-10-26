@@ -130,70 +130,67 @@ class GestionesController extends Controller
         $nombre=tipo_gestion::where('id','=',$request->tipo_gestion)
             ->select('nombre_tipo_gestion')->first();
         
-        if($request->anio_old!=$request->anio || $request->periodo_old!=$request->periodo || $request->tipo_old!=$request->tipo_gestion)
-        {
-            if(count($gestiones)>=1){
-            return redirect()->route($this->path.'.edit')->with('mensaje', 'La " GESTIÓN '.$request->periodo.'/'.$request->anio.' '.$nombre->nombre_tipo_gestion.'"  ya fue creada, elija otra gestión.');
-            }else{
-                $gestionModif=Gestion::findorfail($id);
-                
-                if($request->anio_old==$request->anio || $request->periodo_old==$request->periodo || $request->tipo_old==$request->tipo_gestion){
-                    $gestionModif->fecha_inicio=$request->fecha_inicio;
-                    $gestionModif->fecha_fin=$request->fecha_fin;
-                    $gestionModif->save();
-                    foreach($planModificar as $plan){
-                    // return $plan;
-                        if(in_array($plan->id_plan,$planes)){
-                            $plan->activo='SI';
-                            $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
-                            $gestionModif->action=7;
-                            event(new GestionEvent($gestionModif));
-                        }else{
-                            $plan->activo='NO';
-                            $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
-                            $gestionModif->action=7;
-                                event(new GestionEvent($gestionModif));
-                        }
-                            $plan->save();
-                            // $gestionModif=Gestion::findorfail($id);
-                            // $gestionModif->plan_gestion=$plan;
-                        }
-                    return redirect()->route($this->path.'.index');
-                }else{
-                    $gestionModif->periodo=$request->periodo;
-                    $gestionModif->id_tipo_gestion=$request->tipo_gestion;
-                    $gestionModif->fecha_inicio=$request->fecha_inicio;
-                    $gestionModif->fecha_fin=$request->fecha_fin;
-                    $gestionModif->save();
-                
-                    $gestionModif->desc='Registro Modificado: '.$gestionModif->id;
+        if($request->anio_old==$request->anio && $request->periodo_old==$request->periodo && $request->tipo_old==$request->tipo_gestion){
+            $gestionModif=Gestion::findorfail($id);
+            $gestionModif->fecha_inicio=$request->fecha_inicio;
+            $gestionModif->fecha_fin=$request->fecha_fin;
+            $gestionModif->save();
+            
+            $planModificar=Plan_gestion_unidad::where('id_gestion','=',$gestionModif->id)->get();
+            $planes=$request->plan;
+            foreach($planModificar as $plan){
+                if(in_array($plan->id_plan,$planes)){
+                    $plan->activo='SI';
+                    $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
                     $gestionModif->action=7;
                     event(new GestionEvent($gestionModif));
-                    $planModificar=Plan_gestion_unidad::where('id_gestion','=',$gestionModif->id)->get();
-                    $planes=$request->plan;
-                    foreach($planModificar as $plan){
-                        // return $plan;
-                        if(in_array($plan->id_plan,$planes)){
-                            $plan->activo='SI';
-                            $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
-                            $gestionModif->action=7;
-                            event(new GestionEvent($gestionModif));
-                        }else{
-                            $plan->activo='NO';
-                            $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
-                            $gestionModif->action=7;
-                                event(new GestionEvent($gestionModif));
-                        }
-                            $plan->save();
+                }else{
+                    $plan->activo='NO';
+                    $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
+                    $gestionModif->action=7;
+                    event(new GestionEvent($gestionModif));
+                }
+                    $plan->save();             
+            }
+            return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Los cambios fueron guardados!!','alert-type'=>'success']);
+        }else{
+            if(count($gestiones)>=1){
+                return redirect()->route($this->path.'.edit')->with('mensaje', 'La " GESTIÓN '.$request->periodo.'/'.$request->anio.' '.$nombre->nombre_tipo_gestion.'"  ya fue creada.');
+            }else{
+                $gestionModif=Gestion::findorfail($id);
+                $gestionModif->periodo=$request->periodo;
+                $gestionModif->id_tipo_gestion=$request->tipo_gestion;
+                $gestionModif->fecha_inicio=$request->fecha_inicio;
+                $gestionModif->fecha_fin=$request->fecha_fin;
+                $gestionModif->save();
+                
+                $gestionModif->desc='Registro Modificado: '.$gestionModif->id;
+                $gestionModif->action=7;
+                event(new GestionEvent($gestionModif));
+            
+                $planModificar=Plan_gestion_unidad::where('id_gestion','=',$gestionModif->id)->get();
+                $planes=$request->plan;
+                foreach($planModificar as $plan){
+                // return $plan;
+                    if(in_array($plan->id_plan,$planes)){
+                        $plan->activo='SI';
+                        $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
+                        $gestionModif->action=7;
+                        event(new GestionEvent($gestionModif));
+                    }else{
+                        $plan->activo='NO';
+                        $gestionModif->desc='Registro Modificado: '.$gestionModif->id.' Plan_Gestion_Activo: '.$plan->activo;
+                        $gestionModif->action=7;
+                        event(new GestionEvent($gestionModif));
+                    }
+                    $plan->save();
                             // $gestionModif=Gestion::findorfail($id);
                             // $gestionModif->plan_gestion=$plan;
-                    }
-                    return redirect()->route($this->path.'.index');
                 }
+                return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Los cambios fueron guardados!!','alert-type'=>'success']);
             }
-        }else{
-            return redirect()->route($this->path.'.index');
-        }      
+        }
+                 
     }
 
     public function destroy($id)

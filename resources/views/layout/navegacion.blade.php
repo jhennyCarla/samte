@@ -55,7 +55,7 @@
 								<a class="dropdown-item" href="{{ route('examenGrado.registrarNotas') }}">Registrar Notas Examen de Grado</a>
 								<a class="dropdown-item" href="{{ route('examenGrado.adminOpciones') }}">Administracion Opciones Examen de grado</a>
 								<a class="dropdown-item" href="{{ route('examenGrado.imprimirListas') }}">Imprimir listas Examen de grado</a>
-								<a class="dropdown-item" href="{{ URL::to('examenGrado/subir_script_inst_tit')}}">Cargar Archivo CSV inscritos titulación</a>
+								<a class="dropdown-item" href="{{ URL::to('examenGrado/subir_script')}}">Cargar Archivo CSV inscritos titulación</a>
 								<a class="dropdown-item" href="{{ route('examenGrado.reportes') }}">Reportes Examen de Grado</a>
 								<a class="dropdown-item" href="{{ URL::to('examenGrado/subir_script_pagaron_insc')}}">Cargar Archivo CSV estudiantes pagaron inscripción</a>
 								<a class="dropdown-item" href="{{ URL::to('examenGrado/subir_script_pagaron_insc')}}">Adminnistrar Plan - Areas EG</a>

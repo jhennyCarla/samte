@@ -43,6 +43,18 @@ class ScriptController extends Controller
         // return $gestiones;
         return view('gestiones.subirScript',compact('gestiones'));
     }
+
+    public function subirScriptEg()
+    {
+        // return "hola";
+        $gestiones=Gestion::orderBy('anio','desc')->where('activo','SI')->wherein('id_tipo_gestion',array(1,2))->orderBy('id_tipo_gestion','desc')->get();
+        $gestiones->each(function($gestiones){
+         $gestiones->tipo_gestiones;
+         $gestiones->plan_gestion_unidades;
+     });
+        // return $gestiones;
+        return view('examen_de_grado.subirScriptInsTit',compact('gestiones'));
+    }
     public function importarScript(Request $request)
     {
         // return $request->gestion;
