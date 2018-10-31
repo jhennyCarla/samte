@@ -23,9 +23,6 @@ class tipoEmailSeeder extends Seeder
 
         	'nombre_tipo_email' => 'TRABAJO',
          ]);
-           App\Tipo_email::create([
 
-        	'nombre_tipo_email' => 'MESSENGER',
-         ]);
     }
 }

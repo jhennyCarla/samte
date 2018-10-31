@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class provinciaSeeder extends Seeder
 {
-    /**
+    /** 
      * Run the database seeds.
      *
      * @return void
@@ -43,7 +43,74 @@ class provinciaSeeder extends Seeder
          ]);
         App\Provincia::create([
 
-            'nombre_provincia' => 'SANTA CRUZ DE LA SIERRA',
+            'nombre_provincia' => 'ARANI',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'ARQUE',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'AYOPAYA',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'BOLÍVAR',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'CAPINOTA',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'JOSÉ CARRASCO',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'GERMÁN JORDÁN',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'MIZQUE',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'CAMPERO',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'TAPACARÍ',
+            'id_ciudad' => '1'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'TIRAQUE',
+            'id_ciudad' => '1'
+
+         ]);
+        
+        App\Provincia::create([
+
+            'nombre_provincia' => 'SANTA CRUZ DE LA SIERRA (ANDRÉS IBÁÑEZ)',
             'id_ciudad' => '2'
 
          ]);
@@ -61,13 +128,75 @@ class provinciaSeeder extends Seeder
          ]);
         App\Provincia::create([
 
-            'nombre_provincia' => 'GUARAYOS',
+            'nombre_provincia' => 'VALLEGRANDE',
             'id_ciudad' => '2'
 
          ]);
         App\Provincia::create([
 
             'nombre_provincia' => 'ÑUFLO DE CHAVEZ',
+            'id_ciudad' => '2'
+
+         ]);
+        
+        App\Provincia::create([
+
+            'nombre_provincia' => 'ÁNGEL SANDÓVAL',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'CORDILLERA',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'FLORIDA',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'GERMÁN BUSCH',
+            'id_ciudad' => '2'
+
+         ]);
+       App\Provincia::create([
+
+            'nombre_provincia' => 'GUARAYOS',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'ICHILO',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'VELASCO',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'CABALLERO',
+            'id_ciudad' => '2'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => 'OBISPO SANTISTEVAN',
+            'id_ciudad' => '2'
+
+         ]);
+
+        App\Provincia::create([
+
+            'nombre_provincia' => 'SARA',
             'id_ciudad' => '2'
 
          ]);
@@ -83,21 +212,117 @@ class provinciaSeeder extends Seeder
             'id_ciudad' => '3'
 
          ]);
-          App\Provincia::create([
+         App\Provincia::create([
 
             'nombre_provincia' => 'INGAVI',
             'id_ciudad' => '3'
 
          ]);
-           App\Provincia::create([
+         App\Provincia::create([
 
             'nombre_provincia' => 'SUD YUNGAS',
             'id_ciudad' => '3'
 
          ]);
-            App\Provincia::create([
+         App\Provincia::create([
 
             'nombre_provincia' => 'MANCO KAPAC',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'ABEL ITURRALDE',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'BAUTISTA SAAVEDRA',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'CARNAVI',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'ELIODORO CAMACHO',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'FRANZ TAMAYO',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'GUALBERTO VILLARROEL',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'INQUISIVI',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'GENERAL JOSÉ MANUEL PANDO',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'JOSÉ RAMÓN LOAYZA',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'LARECAJA',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'LOS ANDES',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'MUÑECAS',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'NOR YUNGAS',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'OMASUYOS',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'PACAJES',
+            'id_ciudad' => '3'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'PEDRO DOMINGO MURILLO',
             'id_ciudad' => '3'
 
          ]);
@@ -109,29 +334,95 @@ class provinciaSeeder extends Seeder
          ]);
          App\Provincia::create([
 
-            'nombre_provincia' => 'TOMAS BARRON',
+            'nombre_provincia' => 'TOMÁS BARRÓN',
             'id_ciudad' => '4'
 
          ]);
-          App\Provincia::create([
+         App\Provincia::create([
 
-            'nombre_provincia' => 'POOPO',
+            'nombre_provincia' => 'POOPÓ',
             'id_ciudad' => '4'
 
          ]);
-           App\Provincia::create([
+         App\Provincia::create([
 
-            'nombre_provincia' => 'SEBASTIAN PAGADOR',
+            'nombre_provincia' => 'SEBASTIÁN PAGADOR',
             'id_ciudad' => '4'
 
          ]);
-            App\Provincia::create([
+         App\Provincia::create([
 
-            'nombre_provincia' => 'LITORAL',
+            'nombre_provincia' => 'LITORAL DE ATACAMA',
             'id_ciudad' => '4'
 
          ]);
-        App\Provincia::create([
+         App\Provincia::create([
+
+            'nombre_provincia' => 'SABAYA',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'CARANGAS',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'EDUARDO AVAROA',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'LADISLAO CABRERA',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'NOR CARANGAS',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'PANTALEÓN DALENCE',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'MEJILLONES',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'SAJAMA',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'SAN PEDRO DE TOTORA',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'SAUCARÍ',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
+
+            'nombre_provincia' => 'SUD CARANGASS',
+            'id_ciudad' => '4'
+
+         ]);
+         App\Provincia::create([
 
             'nombre_provincia' => 'POTOSI (CERCADO)',
             'id_ciudad' => '5'
@@ -158,6 +449,12 @@ class provinciaSeeder extends Seeder
         App\Provincia::create([
 
             'nombre_provincia' => 'CORNELIO SAAVEDRA',
+            'id_ciudad' => '5'
+
+         ]);
+        App\Provincia::create([
+
+            'nombre_provincia' => '',
             'id_ciudad' => '5'
 
          ]);

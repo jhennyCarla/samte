@@ -13,63 +13,51 @@ class funcionSeeder extends Seeder
     {
     	App\Funcion::create([
 
-            'nombre_funcion'=>'Docente'
+            'nombre_funcion'=>'DOCENTE'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Jefe de Taller'
+            'nombre_funcion'=>'JEFE DE TALLER'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Administrador'
+            'nombre_funcion'=>'ADMINISTRADOR'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Director de Carrera'
+            'nombre_funcion'=>'DIRECTOR DE CARRERA'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Jefe de unidad'
+            'nombre_funcion'=>'JEFE DE UNIDAD'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Coordinador'
+            'nombre_funcion'=>'COORDINADOR'
             
         ]);
 
         App\Funcion::create([
 
-            'nombre_funcion'=>'Jefe de departamento'
+            'nombre_funcion'=>'JEFE DE DEPARTAMENTO'
             
         ]);
         App\Funcion::create([
 
-            'nombre_funcion'=>'Estudiante'
+            'nombre_funcion'=>'ESTUDIANTE'
             
         ]);
 
-
-        App\Funcion::create([
-
-            'nombre_funcion'=>'PRESIDENTE'
-            
-        ]);
-
-        App\Funcion::create([
-
-            'nombre_funcion'=>'TUTOR'
-            
-        ]);
 
         App\Funcion::create([
 
@@ -77,11 +65,6 @@ class funcionSeeder extends Seeder
             
         ]); 
 
-        App\Funcion::create([
-
-            'nombre_funcion'=>'MIEMBRO'
-            
-        ]);
 
     }
 }

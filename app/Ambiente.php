@@ -24,4 +24,9 @@ class Ambiente extends Model
 	{
 		return $this->hasMany('App\Defensa','id_ambiente','id');
 	}
+
+	public function defensa_ambiente()
+	{
+		return $this->hasOne('App\defensa_ambiente', 'id_ambiente', 'id');
+	}
 }

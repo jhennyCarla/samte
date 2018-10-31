@@ -13,20 +13,55 @@ class accesoSeeder extends Seeder
     {
         App\Acceso::create([
 
-        	'nombre_acceso' =>'Administracion Usuarios',
+        	'nombre_acceso' =>'ADMINISTRACIÓN DE USUARIOS',
 			'ruta_acceso' =>'usuarios.index',
-			'descripcion_acceso' =>'Módulo principal que trabaja con la información principal de usuario, las opciones que puede utilizar se hayan en el menú superior o el de la parte izquierda.',
+			'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN PRINCIPAL DE USUARIO, LAS OPCIONES QUE PUEDE UTILIZAR SE HAYAN EN EL MENÚ SUPERIOR O EL DE LA PARTE IZQUIERDA.',
 			'icono_acceso' =>'iconoMenuAdministracionUsuarios.png',
 			'defecto_acceso' => 'NO',
          ]);
         App\Acceso::create([
 
-        	'nombre_acceso' =>'Administracion de Permisos',
+        	'nombre_acceso' =>'ADMINISTRACIÓN DE PERMISOS',
 			'ruta_acceso' =>'accesos.index',
-			'descripcion_acceso' =>'Modulo donde se configura la asignacion de permisos a las diferentes funcionalidades del SISTEMA',
+			'descripcion_acceso' =>'MÓDULO DONDE SE CONFIGURA LA ASIGNACIÓN DE PERMISOS A LAS DIFERENTES FUNCIONALIDADES DEL SISTEMA.',
 			'icono_acceso' =>'iconoMenuAdministracionGrupos.png',
 			'defecto_acceso' =>'NO',
          ]);
+
+        App\Acceso::create([
+
+            'nombre_acceso' =>'ADMINISTRACIÓN DE GESTIONES',
+            'ruta_acceso' =>'gestiones.index',
+            'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN PRINCIPAL DE USUARIO, LAS OPCIONES QUE PUEDE UTILIZAR SE HAYAN EN EL MENÚ SUPERIOR O EL DE LA PARTE IZQUIERDA.',
+            'icono_acceso' =>'iconoMenuAdministracionUsuarios.png',
+            'defecto_acceso' => 'NO',
+         ]);
+        App\Acceso::create([
+
+            'nombre_acceso' =>'ADMINISTRACIÓN DE TITULACIÓN',
+            'ruta_acceso' =>'titulaciones.index',
+            'descripcion_acceso' =>'MÓDULO DONDE SE CONFIGURA LA ASIGNACIÓN DE PERMISOS A LAS DIFERENTES FUNCIONALIDADES DEL SISTEMA.',
+            'icono_acceso' =>'iconoMenuAdministracionGrupos.png',
+            'defecto_acceso' =>'NO',
+         ]);
+
+        App\Acceso::create([
+
+            'nombre_acceso' =>'REPORTES',
+            'ruta_acceso' =>'resportes.index',
+            'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN PRINCIPAL DE USUARIO, LAS OPCIONES QUE PUEDE UTILIZAR SE HAYAN EN EL MENÚ SUPERIOR O EL DE LA PARTE IZQUIERDA.',
+            'icono_acceso' =>'iconoMenuAdministracionUsuarios.png',
+            'defecto_acceso' => 'NO',
+         ]);
+        App\Acceso::create([
+
+            'nombre_acceso' =>'ADMINISTRACIÓN DE EXAMEN DE GRADO',
+            'ruta_acceso' =>'examen.index',
+            'descripcion_acceso' =>'MÓDULO DONDE SE CONFIGURA LA ASIGNACIÓN DE PERMISOS A LAS DIFERENTES FUNCIONALIDADES DEL SISTEMA.',
+            'icono_acceso' =>'iconoMenuAdministracionGrupos.png',
+            'defecto_acceso' =>'NO',
+         ]);
+
 
     }
 }

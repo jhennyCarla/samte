@@ -13,7 +13,7 @@ class usuarioTelefonoSeeder extends Seeder
     {
     	App\Usuario_telefono::create([
 
-			'numero_telefono'=>'70754687',
+			'numero_telefono'=>'70777733',
 			'id_usuario'=>'1', 
 			'id_tipo_telefono'=>'2'
 			
@@ -90,6 +90,10 @@ class usuarioTelefonoSeeder extends Seeder
 			'id_tipo_telefono'=>'2'
 			
          ]);
+
+    	
+
+    	
 
     }
 } 

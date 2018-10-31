@@ -16,9 +16,6 @@ class CreateDefensasTable extends Migration
         Schema::create('defensas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo_defensa',100)->nullable();
-            $table->date('fecha_defensa')->nullable();
-            $table->time('hora_inicio_defensa')->nullable();
-            $table->time('hora_fin_defensa')->nullable();
             $table->string('descripcion',100)->nullable();
             $table->char('avance')->nullable();
             $table->string('resumen',500)->nullable();

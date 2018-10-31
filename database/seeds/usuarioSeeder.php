@@ -16,10 +16,10 @@ class usuarioSeeder extends Seeder
 			'doc_identidad' => '7962357',
 			'login' => 'admin',
 			'clave' => bcrypt('admin'),
-			'apellidos' => 'GARCIA AVILA',
-			'nombres' => 'JHENNY CARLA',
-			'sexo' => 'FEMENINO',
-			'fecha_nac' => '1992-11-08',
+			'apellidos' => 'MIRANDA ROMERO',
+			'nombres' => 'WEYMAR',
+			'sexo' => 'MASCULINO',
+			'fecha_nac' => '1980-02-14',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -154,7 +154,7 @@ class usuarioSeeder extends Seeder
         App\Usuario::create([
 
 			'doc_identidad' => '4444444',
-			'login' => 'elmer',
+			'login' => 'ELMER',
 			'clave' => bcrypt('elmer'),
 			'apellidos' => 'PEREZ AMADOR',
 			'nombres' => 'ELMER',

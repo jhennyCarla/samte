@@ -33,4 +33,9 @@ class Defensa extends Model
 	{
 		return $this->hasMany('App\Cd', 'id_defensa','id');
 	}
+
+	public function defensa_ambiente()
+	{
+		return $this->hasOne('App\defensa_ambiente', 'id_defensa', 'id');
+	}
 }
