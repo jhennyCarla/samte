@@ -9,7 +9,7 @@ class CreateVistaReportesTitulacionViews extends Migration
     public function up()
     {
         DB::statement("CREATE or replace VIEW vista_reporte_titulacion AS(
-        SELECT a.id as id_usuario, a.nombres as nombres, a.apellidos apellidos, a.sexo genero, b.cod_sis cod_sis, e.nota nota_defensa,f.titulo_defensa titulo_defensa, f.fecha_defensa fecha_defensa, f.empresa empresa,g.id id_modalidad,g.nombre_modalidad nombre_modalidad,i.id id_plan, i.nombre_plan nombre_plan,i.cod_plan cod_plan, j.anio anio, j.periodo periodo
+        SELECT a.id as id_usuario, a.nombres as nombres, a.apellidos apellidos, a.sexo genero, b.cod_sis cod_sis, e.nota nota_defensa,f.titulo_defensa titulo_defensa, f.empresa empresa,g.id id_modalidad,g.nombre_modalidad nombre_modalidad,i.id id_plan, i.nombre_plan nombre_plan,i.cod_plan cod_plan, j.anio anio, j.periodo periodo, l.fecha_defensa fecha_defensa
         FROM usuarios a
         JOIN usuario_asignar_sub_roles b ON b.id_usuario=a.id
         JOIN inscripciones c ON c.id_usuario_asignar_sub_rol=b.id
@@ -20,7 +20,8 @@ class CreateVistaReportesTitulacionViews extends Migration
         JOIN plan_gestion_unidades h ON h.id=c.id_plan_gestion_unidad
         JOIN planes i ON i.id=h.id_plan
         JOIN gestiones j ON j.id=h.id_gestion
-        JOIN unidades k ON k.id=h.id_unidad 
+        JOIN unidades k ON k.id=h.id_unidad
+        JOIN defensa_ambientes l ON l.id_defensa=f.id
         )
     ");
     }
