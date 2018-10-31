@@ -32,7 +32,7 @@ class accesoSeeder extends Seeder
 
             'nombre_acceso' =>'ADMINISTRACIÓN DE GESTIONES',
             'ruta_acceso' =>'gestiones.index',
-            'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN PRINCIPAL DE USUARIO, LAS OPCIONES QUE PUEDE UTILIZAR SE HAYAN EN EL MENÚ SUPERIOR O EL DE LA PARTE IZQUIERDA.',
+            'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN DE LAS GESTIONES.',
             'icono_acceso' =>'iconoMenuAdministracionUsuarios.png',
             'defecto_acceso' => 'NO',
          ]);
@@ -40,7 +40,7 @@ class accesoSeeder extends Seeder
 
             'nombre_acceso' =>'ADMINISTRACIÓN DE TITULACIÓN',
             'ruta_acceso' =>'titulaciones.index',
-            'descripcion_acceso' =>'MÓDULO DONDE SE CONFIGURA LA ASIGNACIÓN DE PERMISOS A LAS DIFERENTES FUNCIONALIDADES DEL SISTEMA.',
+            'descripcion_acceso' =>'MÓDULO DONDE VISUALIZAN TODAS LAS OPCIONES DE ADMINITRACIÓN DE TITULACIÓN',
             'icono_acceso' =>'iconoMenuAdministracionGrupos.png',
             'defecto_acceso' =>'NO',
          ]);
@@ -49,7 +49,7 @@ class accesoSeeder extends Seeder
 
             'nombre_acceso' =>'REPORTES',
             'ruta_acceso' =>'resportes.index',
-            'descripcion_acceso' =>'MÓDULO PRINCIPAL QUE TRABAJA CON LA INFORMACIÓN PRINCIPAL DE USUARIO, LAS OPCIONES QUE PUEDE UTILIZAR SE HAYAN EN EL MENÚ SUPERIOR O EL DE LA PARTE IZQUIERDA.',
+            'descripcion_acceso' =>'MÓDULO EN EL QUE SE VIZUALIZA LOS REPORTES NECESARIOS DE LOS TITULADOS',
             'icono_acceso' =>'iconoMenuAdministracionUsuarios.png',
             'defecto_acceso' => 'NO',
          ]);
@@ -57,7 +57,7 @@ class accesoSeeder extends Seeder
 
             'nombre_acceso' =>'ADMINISTRACIÓN DE EXAMEN DE GRADO',
             'ruta_acceso' =>'examen.index',
-            'descripcion_acceso' =>'MÓDULO DONDE SE CONFIGURA LA ASIGNACIÓN DE PERMISOS A LAS DIFERENTES FUNCIONALIDADES DEL SISTEMA.',
+            'descripcion_acceso' =>'MÓDULO VISUALIZAN TODAS LAS OPCIONES DE EXAMEN DE GRADO',
             'icono_acceso' =>'iconoMenuAdministracionGrupos.png',
             'defecto_acceso' =>'NO',
          ]);

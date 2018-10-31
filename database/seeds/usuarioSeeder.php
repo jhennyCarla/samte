@@ -13,9 +13,9 @@ class usuarioSeeder extends Seeder
     {
     	App\Usuario::create([ 
  
-			'doc_identidad' => '7962357',
+			'doc_identidad' => '5188579',
 			'login' => 'admin',
-			'clave' => bcrypt('admin'),
+			'clave' => bcrypt('admin'), 
 			'apellidos' => 'MIRANDA ROMERO',
 			'nombres' => 'WEYMAR',
 			'sexo' => 'MASCULINO',
@@ -173,12 +173,12 @@ class usuarioSeeder extends Seeder
         App\Usuario::create([
 
 			'doc_identidad' => '3333333',
-			'login' => 'weymar',
-			'clave' => bcrypt('weymar'),
-			'apellidos' => 'MIRANDA ROMERO',
-			'nombres' => 'WEYMAR',
+			'login' => 'alvaro',
+			'clave' => bcrypt('alvaro'),
+			'apellidos' => 'ROCABADO SUAREZ',
+			'nombres' => 'ALVARO FERNANDO',
 			'sexo' => 'MASCULINO',
-			'fecha_nac' => '1985-10-12',
+			'fecha_nac' => '1975-11-08',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',

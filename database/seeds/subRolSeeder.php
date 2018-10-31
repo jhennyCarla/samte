@@ -50,7 +50,7 @@ class subRolSeeder extends Seeder
 			'id_rol' =>'2'
         	 
          ]);
-
+ 
          App\Sub_rol::create([
 			
 			'nombre_sub_rol' =>'PLAZO FIJO',

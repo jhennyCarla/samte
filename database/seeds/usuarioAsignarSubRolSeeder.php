@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class usuarioAsignarSubRolSeeder extends Seeder
 {
-    /**
+    /** 
      * Run the database seeds.
      *
      * @return void
@@ -13,7 +13,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
     {
     	App\Usuario_asignar_sub_rol::create([
 
-			'cod_sis'=>'201001230',
+			'cod_sis'=>'200001230',
 			'fecha_inicio'=>'2000-03-10',
 			'fecha_fin'=>'2030-03-10',
 			'activo'=>'SI',
@@ -94,7 +94,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
             'fecha_inicio'=>'2000-03-10',
             'fecha_fin'=>'2030-03-10',
             'activo'=>'SI',
-            'id_funcion'=>'12',
+            'id_funcion'=>'8',
             'id_sub_rol'=>'7',
             'id_unidad'=>'7',
             'id_usuario'=>'7'
@@ -106,7 +106,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
             'fecha_inicio'=>'2000-03-10',
             'fecha_fin'=>'2030-03-10',
             'activo'=>'SI',
-            'id_funcion'=>'11',
+            'id_funcion'=>'8',
             'id_sub_rol'=>'7',
             'id_unidad'=>'7',
             'id_usuario'=>'8'
@@ -120,7 +120,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
             'fecha_inicio'=>'2000-03-10',
             'fecha_fin'=>'2030-03-10',
             'activo'=>'SI',
-            'id_funcion'=>'9',
+            'id_funcion'=>'1',
             'id_sub_rol'=>'7',
             'id_unidad'=>'7',
             'id_usuario'=>'9'
