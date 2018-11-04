@@ -56,7 +56,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
             'fecha_inicio'=>'2000-03-10',
             'fecha_fin'=>'2030-03-10',
             'activo'=>'SI',
-            'id_funcion'=>'2',
+            'id_funcion'=>'4',
             'id_sub_rol'=>'1',
             'id_unidad'=>'5',
             'id_usuario'=>'4'
@@ -69,7 +69,7 @@ class usuarioAsignarSubRolSeeder extends Seeder
             'fecha_inicio'=>'2000-03-10',
             'fecha_fin'=>'2030-03-10',
             'activo'=>'SI',
-            'id_funcion'=>'2',
+            'id_funcion'=>'1',
             'id_sub_rol'=>'1',
             'id_unidad'=>'4',
             'id_usuario'=>'5'

@@ -6,13 +6,12 @@
       <div class="card-header card-header-primary text-center text-muted"><h5>CREAR NUEVO USUARIO USUARIO</h5>
       </div>
       <div class="card-body">
-        <p><strong>todos los campos en asterisco (*) son de manera obligatoria</strong></p>
-        <hr>  
+        <p class=" rounded bg-info text-white shadow p-1 mb-4"><strong>  1.- DATOS PERSONALES (Todos los campos que tengan un * al principio son obligatorios)</strong></p>
         {!! Form::open(array('route' =>array('usuarios.store'), 'method' => 'POST'), array('role'=> 'form')) !!}
           {{ csrf_field() }}
           <div class="form-row">
             <div class="form-group col-md-5">
-              {!! Form::label('login','* Login:')!!}
+              {!! Form::label('login','* Login: ')!!}
               {!! Form::text('login',null,['placeholder' => 'Ingrese su login', 'class'=>'form-control']) !!}
               @if($errors->has('login'))
                 {!! $errors->first('login','<p class="rounded msjAlert">:message</p>') !!}
@@ -45,10 +44,10 @@
               @endif
             </div>
             <div class="form-group col-md-4">
-              {!! Form::label('id_tipo_Doc_identidad','* Tipo documento:') !!}
-              {!! Form::select('id_tipo_Doc_identidad',$tipoDocId,null,['placeholder' => 'Seleccione','class'=>'form-control'])!!}
-              @if($errors->has('id_tipo_Doc_identidad'))
-                {!! $errors->first('id_tipo_Doc_identidad','<p class="rounded msjAlert">:message</p>') !!}
+              {!! Form::label('id_tipo_doc_identidad','* Tipo documento:') !!}
+              {!! Form::select('id_tipo_doc_identidad',$tipoDocId,null,['placeholder' => 'Seleccione','class'=>'form-control'])!!}
+              @if($errors->has('id_tipo_doc_identidad'))
+                {!! $errors->first('id_tipo_doc_identidad','<p class="rounded msjAlert">:message</p>') !!}
                 {{-- <span class="text-danger"><strong>{{ $errors->first('id_tipo_Doc_identidad') }}</strong></span> --}}
               @endif
             </div>
@@ -87,7 +86,13 @@
           <div class="form-group row">
             {!! Form::label('fecha_nac','* Fecha de nacimiento:',['class'=>'col-md-3']) !!}
             <div class="col-md-9">
-              <input name='fecha_nac' type="date" class="form-control" id="birthday">
+              <div class="input-group mb-3">
+                {!! Form::text('fecha_nac',null,array('placeholder'=>'AAAA/MM/DD','required'=>'required','id'=>'datepicker','class'=>'form-control')) !!}
+                <div class="input-group-append text-center">
+                  <span class="input-group-text"  style="background-color:#17a2b84d; width:50px; "><i class="fa fa-calendar" style="color:#ffa31a;"></i></span>
+                </div>
+              </div>
+              {{-- <input type="text" id="datepicker" class="form-control"></p> --}}
               @if($errors->has('fecha_nac'))
                 {!! $errors->first('fecha_nac','<p class="rounded msjAlert">:message</p>') !!}
                 {{-- <span class="text-danger"><strong>{{ $errors->first('fecha_nac') }}</strong></span> --}}
@@ -158,7 +163,7 @@
               @if($errors->has('email'))
                 {!! $errors->first('email','<p class="rounded msjAlert">:message</p>') !!}
                 {{-- <span class="text-danger"><strong>{{ $errors->first('email') }}</strong></span> --}}
-                @endif
+              @endif
             </div>
           </div>
           
@@ -174,7 +179,7 @@
             <div class="form-group col-md-6">
               {!! Form::label('numero_telefono','* Telefono:') !!}
               {!! Form::text('numero_telefono',null,array('placeholder' => 'Ingrese su Telefono','class'=>'form-control numbers')) !!}
-              @if($errors->has('fecha_nac'))
+              @if($errors->has('numero_telefono'))
                 {!! $errors->first('numero_telefono','<p class="rounded msjAlert">:message</p>') !!}
                 {{-- <span class="text-danger"><strong>{{ $errors->first('numero_telefono') }}</strong></span> --}}
                 @endif

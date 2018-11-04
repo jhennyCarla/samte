@@ -3,9 +3,10 @@
 <div class="container">
   <div class="row">
     <div class="card">
-      <div class="card-header card-header-primary text-center text-muted"><h5>EDICIÓN FORMULARIO DE REGISTRO</h5>
+      <div class="card-header card-header-primary text-center text-muted"><h5>EDITAR INFORMACIÓN USUARIO SELECCIONADO</h5>
       </div>
       <div class="card-body">
+        <p class=" rounded bg-info text-white shadow p-1 mb-4"><strong>  1.- DATOS PERSONALES (Todos los campos que tengan un * al principio son obligatorios)</strong></p>
         {{ Form::open(array('route' =>array('usuarios.update', $usuario->id), 'method' => 'POST'), array('role'=> 'form')) }}
           {{ method_field('PUT') }}
           <div class="form-row">
@@ -18,7 +19,7 @@
               @endif
             </div>
             <div class="form-group col-sm-6">
-              {!! Form::label('clave','* Contraseña:')!!}
+              {!! Form::label('clave',' Contraseña:')!!}
               {!! Form::password('clave',['placeholder' => 'Ingrese su contraseña', 'class'=>'form-control', 'id'=>'clave']) !!}
               @if($errors->has('clave'))
                 {!! $errors->first('clave','<p class="rounded msjAlert">:message</p>') !!}
@@ -35,7 +36,7 @@
 
           <div class="form-row">
             <div class="form-group col-md-4">
-              {{ Form::label('doc_identidad','Documento de indentidad:')}}
+              {{ Form::label('doc_identidad','* Documento de indentidad:')}}
               {{ Form::text('doc_identidad',$usuario->doc_identidad, array('placeholder'=> $usuario->doc_identidad, 'class' => 'form-control')) }}
               @if($errors->has('doc_identidad'))
                 {!! $errors->first('doc_identidad','<p class="rounded msjAlert">:message</p>') !!}
@@ -44,10 +45,10 @@
             </div>
 
             <div class="form-group col-md-4">
-              {!! Form::label('id_tipo_Doc_identidad','Tipo documento:') !!}
-              {{ Form::select('id_tipo_Doc_identidad', $tipoDocId, $usuario->tipo_doc_identidad->id, array('placeholder'=> $usuario->doc_identidad, 'class' => 'form-control')) }}
-              @if($errors->has('id_tipo_Doc_identidad'))
-                {!! $errors->first('id_tipo_Doc_identidad','<p class="rounded msjAlert">:message</p>') !!}
+              {!! Form::label('id_tipo_doc_identidad','* Tipo documento:') !!}
+              {{ Form::select('id_tipo_doc_identidad', $tipoDocId, $usuario->tipo_doc_identidad->id, array('placeholder'=> $usuario->doc_identidad, 'class' => 'form-control')) }}
+              @if($errors->has('id_tipo_doc_identidad'))
+                {!! $errors->first('id_tipo_doc_identidad','<p class="rounded msjAlert">:message</p>') !!}
                 {{-- <span class="text-danger"><strong>{{ $errors->first('id_tipo_Doc_identidad') }}</strong></span> --}}
               @endif
             </div>
@@ -58,7 +59,7 @@
                   @endforeach 
                 </select>--}}
             <div class="form-group col-md-4">
-              {!! Form::label('ciudad_expedido_doc','Expedido en:') !!}
+              {!! Form::label('ciudad_expedido_doc','* Expedido en:') !!}
               <select name="ciudad_expedido_doc" class="form-control">
                 <option value='{{ $usuario->ciudad_expedido_doc }}'>{{ $usuario->ciudad->nombre_ciudad }}</option>  
                   @foreach ($ciudad as $expedido)
@@ -73,7 +74,7 @@
           </div>
 
           <div class="form-row">
-            {!! Form::label('apellidos','Apellidos:',['class'=>'form-group col-md-1']) !!}
+            {!! Form::label('apellidos','* Apellidos:',['class'=>'form-group col-md-1']) !!}
             <div class="form-group col-md-11">
             <input type="text" class="form-control" id="exampleInputName2" name="apellidos" value="{{ $usuario->apellidos }}">
             @if($errors->has('apellidos'))
@@ -84,7 +85,7 @@
           </div>
         
           <div class="form-row">
-            {!! Form::label('nombres','Nombres:',['class'=>'form-group col-md-1']) !!}
+            {!! Form::label('nombres','* Nombres:',['class'=>'form-group col-md-1']) !!}
             <div class="form-group col-md-11">
             {!! form::text('nombres',$usuario->nombres,array('placeholder'=>$usuario->nombres, 'class'=>'form-control')) !!}
             @if($errors->has('nombres'))
@@ -95,19 +96,27 @@
           </div>
 
           <div class="form-row">
-            {!! Form::label('fecha_nac','Fecha de nacimiento:',['class'=>'form-group col-md-2']) !!}
-            <div class="form-group col-md-10">
-            {!! form::text('fecha_nac',$usuario->fecha_nac,array('placeholder'=>$usuario->fecha_nac, 'class'=>'form-control')) !!}
-            @if($errors->has('fecha_nac'))
-              {!! $errors->first('fecha_nac','<p class="rounded msjAlert">:message</p>') !!}
-              {{-- <span class="text-danger"><strong>{{ $errors->first('fecha_nac') }}</strong></span> --}}
-            @endif
-            </div>
+            {!! Form::label('fecha_nac','* Fecha de nacimiento:',['class'=>'col-md-2']) !!}
+            <div class="col-md-10">
+              <div class="input-group mb-3">
+                {!! Form::text('fecha_nac',$usuario->fecha_nac,array('placeholder'=>$usuario->fecha_nac,'required'=>'required','id'=>'datepicker','class'=>'form-control')) !!}
+                <div class="input-group-append text-center">
+                  <span class="input-group-text"  style="background-color:#17a2b84d; width:50px; "><i class="fa fa-calendar" style="color:#ffa31a;"></i></span>
+                </div>
+              </div>
+              {{-- <input type="text" id="datepicker" class="form-control"></p> --}}
+              @if($errors->has('fecha_nac'))
+                {!! $errors->first('fecha_nac','<p class="rounded msjAlert">:message</p>') !!}
+                {{-- <span class="text-danger"><strong>{{ $errors->first('fecha_nac') }}</strong></span> --}}
+                @endif
+            </div>          
           </div>
+
+
           
           <div class=" form-row">
             <div class="form-group col-md-4">
-              {!! Form::label('pais_usuario','Pais:') !!}
+              {!! Form::label('pais_usuario','* Pais:') !!}
               <select name="pais_usuario" class="form-control" id="id_pais">
                 <option value='{{ $usuario->provincia->id }}'>{{ $usuario->provincia->ciudad->pais->nombre_pais}}</option>  
                   @foreach ($pais as $paises)
@@ -120,7 +129,7 @@
               @endif
             </div>
             <div class="form-group col-md-4">
-              {!! Form::label('ciudad_usuario','Ciudad:') !!}
+              {!! Form::label('ciudad_usuario','* Ciudad:') !!}
               <select name="ciudad_usuario" class="form-control" id="id_ciudad">
                 <option value='{{ $usuario->provincia->id}}'>{{ $usuario->provincia->ciudad->nombre_ciudad,$usuario->provincia->nombre_provincia}}</option>  
                 
@@ -131,7 +140,7 @@
               @endif
             </div>
             <div class="form-group col-md-4">
-              {!! Form::label('id_provincia','Provincia:') !!}
+              {!! Form::label('id_provincia','* Provincia:') !!}
               <select name="id_provincia" class="form-control" id="id_provincia">
                 <option value='{{ $usuario->provincia->id }}'>{{ $usuario->provincia->nombre_provincia }}</option> 
               </select>
@@ -144,11 +153,11 @@
           
           <div class="form-row">
             <div class="form-group col-md-6">
-              {!! Form::label('sexo','Genero:') !!}
+              {!! Form::label('sexo','* Genero:') !!}
               <input type="text" class= "form-control"  id="sexoUsuario"  name="sexo" list="Sexo" value="{{ $usuario->sexo }}">
                 <datalist id="Sexo">
-                  <option value="Femenino">
-                  <option value="Masculino">
+                  <option value="FEMENINO">
+                  <option value="MASCULINO">
                 </datalist>
               @if($errors->has('sexo'))
                 {!! $errors->first('sexo','<p class="rounded msjAlert">:message</p>') !!}
@@ -170,7 +179,8 @@
             </div>
           </div>
     
-          <div class="text-center">{{ Form::button('Editar Usuario', array('type'=> 'submit','class'=>'btn btn-primary')) }}</div>
+          <div class="text-center">{{ Form::button(' <i class="fa fa-edit"></i> Editar Usuario', array('type'=> 'submit','class'=>'btn btn-success')) }}</div>            
+            <a href="{{ route('usuarios.index') }}" role="button" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
         {{ Form::close() }}
       </div><!--cierre card body-->
     </div>

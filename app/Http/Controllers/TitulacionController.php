@@ -26,6 +26,7 @@ use App\usuario_titulo;
 use App\titulo;
 use App\cd;
 use App\Gestion;
+use App\Defensa_ambiente;
 use Jenssegers\Date\Date;
 
 use DB;
@@ -363,12 +364,18 @@ class TitulacionController extends Controller
 		}else
 			$modalidad="vacio";	
 
+		$gestiones=Gestion::orderBy('anio','desc')->where('activo','SI')->wherein('id_tipo_gestion',array(1,2))->orderBy('id_tipo_gestion','desc')->get();
+        $gestiones->each(function($gestiones){
+         $gestiones->tipo_gestiones;
+         $gestiones->plan_gestion_unidades;
+ 		});
+
 		$funciones=funcion::wherein('nombre_funcion',['PRESIDENTE','TUTOR','DECANO','MIEMBRO'])->get();
 		$titulos=titulo::all();
 
 		$funcionPresidentes=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
 				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
-				->wherein('b.nombre_funcion',['PRESIDENTE'])
+				->wherein('b.nombre_funcion',['DIRECTOR DE CARRERA'])
 				->join('usuario_titulos as c','c.id_usuario','=','a.id')
 				->join('titulos as d','d.id','=','c.id_titulo')
 				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
@@ -401,7 +408,7 @@ class TitulacionController extends Controller
 		$ambiente=ambiente::all();
 		$tipo_ambiente=Tipo_ambiente::all()->pluck('nombre_tipo_ambiente','id');
 		$unidad=Unidad::all()->pluck('nombre_unidad','id');
-		return view('titulacion.crearActa',compact('modalidad','modalidades','funcionPresidentes','funcionMiembro','funcionTutor','funcionDecano','ambiente','tipo_ambiente','unidad','funciones','usuario','titulos')); 
+		return view('titulacion.crearActa',compact('modalidad','modalidades','funcionPresidentes','funcionMiembro','funcionTutor','funcionDecano','ambiente','tipo_ambiente','unidad','funciones','usuario','titulos','gestiones')); 
 	}
 	public function eliminarEst(Request $request){
 		$usuario=$request->id;
@@ -585,6 +592,10 @@ class TitulacionController extends Controller
 				$defensa_user->empresa='null';
 			}
 			$defensa_user->save();
+
+			$defensa_ambiente=new Defensa_ambiente($request->all());
+			$defensa_ambiente->id_defensa=$defensa_user->id;
+			$defensa_ambiente->save();
 
 			$asignar_presidente=new Asignar_funcion_defensa();
 			$asignar_presidente->funcion="presidente";

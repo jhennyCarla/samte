@@ -48,5 +48,37 @@ $(document).ready(function (){
           } 
         });
       });
+      $('#fecha').datepicker({
+          // buttonText: "Choose",
+          // onlyButton: true,
+          changeMonth: true,
+          changeYear: true,
+          showOn: "button",
+          language: "es",
+          autoclose: true,
+          yearRange: "-80:+0",
+          // '-100:+0'
+          // minDate: "-20D", 
+          // maxDate: "+20D", 
+          // gotoCurrent: true,
+          showMonthAfterYear: true,
+          buttonImage: '/img/prueba.png',
+          buttonImageOnly: true,
+          // showOn: "focus",
+          // numberOfMonths: 2, 
+          buttonText: "Selecciona la Fecha",
+          dateFormat: "dd-mm-yy",
+          // minDate: '-2m',
+        });
+
+
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-80:+0",
+      dateFormat: "yy-mm-dd",
+    });
+  });
     });
    
