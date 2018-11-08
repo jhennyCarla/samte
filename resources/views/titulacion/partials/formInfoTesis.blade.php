@@ -2,6 +2,9 @@
 	{!! Form::label('titulo_defensa','*Nombre Tesis:', ['class'=>'col-md-2']) !!}
 	<div class="col-md-10">
 	{!! Form::textarea('titulo_defensa',null,['placeholder' => 'nombre_tesis','class'=>'form-control','size' => '30x2']) !!}
+    @if($errors->has('titulo_defensa'))
+      {!! $errors->first('titulo_defensa','<p class="rounded msjAlert">:message</p>') !!}
+    @endif
 	</div>
 </div>
 <div class="form-group row">

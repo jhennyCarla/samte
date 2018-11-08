@@ -1,13 +1,19 @@
 <div class="form-group row">
 	{!! Form::label('grupo_ptaang','Grupo:', ['class'=>'col-md-2']) !!}
 	<div class="col-md-10">
-	{!! Form::text('grupo_ptaang',null,['placeholder' => 'Ingrese el numero de grupo','class'=>'form-control']) !!}
+	{!! Form::text('grupo_ptaang',null,['placeholder' => 'Ingrese el numero de grupo','class'=>'form-control','required'=>'required']) !!}
+	@if($errors->has('grupo_ptaang'))
+      	{!! $errors->first('grupo_ptaang','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 </div>
 <div class="form-group row">
 	{!! Form::label('modalidad_ptaang','Modalidad:', ['class'=>'col-md-2']) !!}
 	<div class="col-md-10">
-	{!! Form::select('modalidad_ptaang',['memoria profesional'=>'Memoria profesional','trabajo dirigido'=>'Trabajo dirigido','otro'=>'Otro'],null,['placeholder' => 'Ingrese la modalidad','class'=>'form-control']) !!}
+	{!! Form::select('modalidad_ptaang',['memoria profesional'=>'Memoria profesional','trabajo dirigido'=>'Trabajo dirigido','otro'=>'Otro'],null,['placeholder' => 'Ingrese la modalidad','class'=>'form-control','required'=>'required']) !!}
+	@if($errors->has('modalidad_ptaang'))
+      	{!! $errors->first('modalidad_ptaang','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 </div>
 <div class="form-group row">
@@ -23,7 +29,10 @@
 <div class="form-group row">
 	{!! Form::label('nota_ptaang','Nota numeral:',['class'=>'col-md-2']) !!}
 	<div class="col-md-3">
-		<input type="number" name="nota_ptaang" id="nota_ptaang" class="form-control" min="1" max="100" onkeyup="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0'}">
+		<input type="number" name="nota_ptaang" id="nota_ptaang" class="form-control" min="1" max="100" onkeyup="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0'}" required>
+		@if($errors->has('nota_ptaang'))
+	      	{!! $errors->first('nota_ptaang','<p class="rounded msjAlert">:message</p>') !!}
+		@endif
 	</div>
 	{!! Form::label('nota_literal_ptaang','Nota Literal:',['class'=>'col-md-2 ']) !!}
 	<div class="col-md-3">
@@ -34,13 +43,19 @@
 <div class="form-group row">
 	{!! Form::label('version','Version:', ['class'=>'col-md-2']) !!}
 	<div class="col-md-10">
-	{!! Form::text('version',null,['placeholder' => 'Version ','class'=>'form-control']) !!}
+	{!! Form::text('version',null,['placeholder' => 'Version ','class'=>'form-control','required'=>'required']) !!}
+	@if($errors->has('version'))
+      	{!! $errors->first('version','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 </div>
 <div class="form-group row">
 	{!! Form::label('expedido','Expedido:', ['class'=>'col-md-2']) !!}
 	<div class="col-md-10">
-	{!! Form::text('expedido',null,['placeholder' => 'Expedido ','class'=>'form-control']) !!}
+	{!! Form::text('expedido',null,['placeholder' => 'Expedido ','class'=>'form-control','required'=>'required']) !!}
+	@if($errors->has('expedido'))
+      	{!! $errors->first('expedido','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 </div>
 <div class="form-group row">

@@ -8,7 +8,7 @@ class Defensa extends Model
 {
     protected $table = 'defensas';
 
-	protected $fillable = ['titulo_defensa','fecha_defensa','hora_inicio_defensa','hora_fin_defensa','descripcion','avance','resumen','empresa','grupo_ptaang','facultad','modalidad_ptaang','version','expedido','universidad','empresa','numero_resolucion','fecha_resolucion','id_modalidad_titulacion','id_ambiente'];
+	protected $fillable = ['titulo_defensa','descripcion','avance','resumen','empresa','grupo_ptaang','facultad','modalidad_ptaang','version','expedido','universidad','empresa','numero_resolucion','fecha_resolucion','autoridad','id_modalidad_titulacion'];
 
 	public function estudiante_defensas()
 	{
@@ -24,16 +24,10 @@ class Defensa extends Model
 	{
 		return $this->belongsTo('App\Modalidad_titulacion', 'id_modalidad_titulacion','id');
 	}
-
-	public function ambiente()
-	{
-		return $this->belongsTo('App\Ambiente', 'id_ambiente','id');
-	}
 	public function cds()
 	{
 		return $this->hasMany('App\Cd', 'id_defensa','id');
 	}
-
 	public function defensa_ambiente()
 	{
 		return $this->hasOne('App\defensa_ambiente', 'id_defensa', 'id');

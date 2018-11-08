@@ -17,6 +17,7 @@ use App\Tipo_ambiente;
 use App\Unidad;
 use App\Plan;
 use App\Defensa;
+use App\Defensa_ambiente;
 use App\Inscripcion;
 use App\Asignar_funcion_defensa;
 use App\Estudiante_defensa;
@@ -26,7 +27,7 @@ use App\usuario_titulo;
 use App\titulo;
 use App\cd;
 use App\Gestion;
-use App\Defensa_ambiente;
+use App\plan_gestion_unidad;
 use Jenssegers\Date\Date;
 
 use DB;
@@ -357,58 +358,40 @@ class TitulacionController extends Controller
 	}
 	public function crearActa(Request $request){
 		$modalidades=Modalidad_titulacion::all()->pluck('nombre_modalidad','id');
-		if($request->modalidades!='')
-		{
-			 // return $request;
+		if($request->modalidades!=''){
 		$modalidad=Modalidad_titulacion::modalidad($request->modalidades)->get()->first();
 		}else
 			$modalidad="vacio";	
-
-		$gestiones=Gestion::orderBy('anio','desc')->where('activo','SI')->wherein('id_tipo_gestion',array(1,2))->orderBy('id_tipo_gestion','desc')->get();
-        $gestiones->each(function($gestiones){
-         $gestiones->tipo_gestiones;
-         $gestiones->plan_gestion_unidades;
- 		});
-
-		$funciones=funcion::wherein('nombre_funcion',['PRESIDENTE','TUTOR','DECANO','MIEMBRO'])->get();
-		$titulos=titulo::all();
-
-		$funcionPresidentes=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
+			$titulos=titulo::all();
+			$gestionActiva=plan_gestion_unidad::join('gestiones as a','a.id','=','plan_gestion_unidades')->select('plan_gestion_unidades.activo_plan','a.anio','a.periodo');
+			$funcionPresidentes=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
 				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
-				->wherein('b.nombre_funcion',['DIRECTOR DE CARRERA'])
+				->wherein('b.nombre_funcion',['director de carrera','jefe de taller','director academico'])
 				->join('usuario_titulos as c','c.id_usuario','=','a.id')
 				->join('titulos as d','d.id','=','c.id_titulo')
 				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
-
-		$funcionMiembro=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
+			$funcionMiembro=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
 				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
 				->wherein('b.nombre_funcion',['docente'])
-				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario')->get();
-				
-		// $funcionMiembro=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
-		// 		->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
-		// 		->wherein('b.nombre_funcion',['docente'])
-		// 		->join('usuario_titulos as c','c.id_usuario','=','a.id')
-		// 		->join('titulos as d','d.id','=','c.id_titulo')
-		// 		->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
-
-		$funcionTutor=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
-				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
-				->wherein('b.nombre_funcion',['DOCENTE'])
 				->join('usuario_titulos as c','c.id_usuario','=','a.id')
 				->join('titulos as d','d.id','=','c.id_titulo')
 				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
-
-		$funcionDecano=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
+			$funcionTutor=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
 				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
-				->wherein('b.nombre_funcion',['DECANO'])
+				->wherein('b.nombre_funcion',['docente'])
 				->join('usuario_titulos as c','c.id_usuario','=','a.id')
 				->join('titulos as d','d.id','=','c.id_titulo')
 				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
-		$ambiente=ambiente::all();
-		$tipo_ambiente=Tipo_ambiente::all()->pluck('nombre_tipo_ambiente','id');
-		$unidad=Unidad::all()->pluck('nombre_unidad','id');
-		return view('titulacion.crearActa',compact('modalidad','modalidades','funcionPresidentes','funcionMiembro','funcionTutor','funcionDecano','ambiente','tipo_ambiente','unidad','funciones','usuario','titulos','gestiones')); 
+			$funcionDecano=usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')
+				->join('funciones as b','b.id','=','usuario_asignar_sub_roles.id_funcion')
+				->wherein('b.nombre_funcion',['decano'])
+				->join('usuario_titulos as c','c.id_usuario','=','a.id')
+				->join('titulos as d','d.id','=','c.id_titulo')
+				->select('usuario_asignar_sub_roles.id as id_us_sig_sub_rol','b.id','usuario_asignar_sub_roles.id_usuario','d.titulo_abreviado')->get();
+			$ambiente=ambiente::all();
+			$tipo_ambiente=Tipo_ambiente::all()->pluck('nombre_tipo_ambiente','id');
+			$unidad=Unidad::all()->pluck('nombre_unidad','id');
+			return view('titulacion.crearActa',compact('modalidad','modalidades','funcionPresidentes','funcionMiembro','funcionTutor','funcionDecano','ambiente','tipo_ambiente','unidad','usuario','titulos')); 
 	}
 	public function eliminarEst(Request $request){
 		$usuario=$request->id;
@@ -488,9 +471,11 @@ class TitulacionController extends Controller
 			'doc_identidad' => 'required|string',
 			'sexo'=>'required',
 			'id_funcion'=>'required',
-			'titulo_nombre'=>'required'
-		);
-		$validator = Validator::make ( Input::all(), $rules);
+			'titulo_nombre'=>'required');
+		$messages = array(
+			'id_funcion.required' => 'El campo funcion es obligatorio.');
+		$validator = Validator::make ( Input::all(), $rules,$messages);
+		
 		if ($validator->fails()){
 			return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
 		}else{
@@ -512,12 +497,12 @@ class TitulacionController extends Controller
 			$subrol->id_sub_rol=7;
 			$subrol->id_unidad=7;
 			$subrol->id_usuario=$usuario;
-			if($request->id_funcion==10 or $request->id_funcion==12){
-				$subrol->id_funcion=1;
+			if($request->id_funcion==13 or $request->id_funcion==14){
+				$subrol->id_funcion=1; //funcion miembro , tutor es docente
 			}elseif($request->id_funcion==11){
-				$subrol->id_funcion=11;
-			}elseif($request->id_funcion==9){
-				$subrol->id_funcion=9;
+				$subrol->id_funcion=11; //funcion decano
+			}elseif($request->id_funcion==12){ 
+				$subrol->id_funcion=4; //funcion presidente dir carr
 			}
 			$subrol->save();
 		
@@ -580,77 +565,94 @@ class TitulacionController extends Controller
 		);	
 		return response()->json($prof);
 	}
-	public function store(Request $request){	
+	public function store(Request $request){		
+		
 		$defensa_user=new Defensa($request->all());
 		$defensa_user->id_modalidad_titulacion=$request->id_modalidad;
-		
+	
 		if($request->nombre_modalidad=="PROYECTO DE GRADO" or $request->nombre_modalidad=="ADSCRIPCION" or $request->nombre_modalidad=="TESIS" or $request->nombre_modalidad=="TRABAJO DIRIGIDO" or $request->nombre_modalidad=="TRABAJO DE INTERNADO")
 		{
+			$this->validate($request,[
+				'titulo_defensa'=>'required',
+				'id_usuario'=>'required'],
+				[ 'titulo_defensa.required'=>'El nombre de la tesis es obligatorio',
+					'id_usuario.required'=>'Al menos tiene que tener un estudiante registrado'
+				]);
 			if($request->nombre_modalidad=="TRABAJO DIRIGIDO" or $request->nombre_modalidad=="ADSCRIPCION" ){
-				$defensa_user->empresa        =$request->empresa;
-			}else{
-				$defensa_user->empresa='null';
+				$this->validate($request,['empresa'=>'required']);
+				$defensa_user->empresa=$request->empresa;
 			}
 			$defensa_user->save();
-
-			$defensa_ambiente=new Defensa_ambiente($request->all());
-			$defensa_ambiente->id_defensa=$defensa_user->id;
-			$defensa_ambiente->save();
-
-			$asignar_presidente=new Asignar_funcion_defensa();
-			$asignar_presidente->funcion="presidente";
-			$asignar_presidente->id_defensa=$defensa_user->id;
-			$asignar_presidente->id_usuario_asignar_sub_rol=$request->presidente;
-			$asignar_presidente->id_funcion=$request->presidente_funcion;
-			$asignar_presidente->save();
-
-			$asignar_miembro1=new Asignar_funcion_defensa();
-			$asignar_miembro1->funcion="miembro1";
-			$asignar_miembro1->id_defensa=$defensa_user->id;
-			$asignar_miembro1->id_usuario_asignar_sub_rol=$request->miembro1;
-			$asignar_miembro1->id_funcion=$request->miembro1_funcion;
-			$asignar_miembro1->save();
-
-			$asignar_miembro2=new Asignar_funcion_defensa();
-			$asignar_miembro2->funcion="miembro2";
-			$asignar_miembro2->id_defensa=$defensa_user->id;
-			$asignar_miembro2->id_usuario_asignar_sub_rol=$request->miembro2;
-			$asignar_miembro2->id_funcion=$request->miembro2_funcion;
-			$asignar_miembro2->save();
-
-			$asignar_miembro3=new Asignar_funcion_defensa();
-			$asignar_miembro3->funcion="miembro3";
-			$asignar_miembro3->id_defensa=$defensa_user->id;
-			$asignar_miembro3->id_usuario_asignar_sub_rol=$request->miembro3;
-			$asignar_miembro3->id_funcion=$request->miembro3_funcion;
-			$asignar_miembro3->save();
-
-			$asignar_tutor=new Asignar_funcion_defensa();
-			$asignar_tutor->funcion="tutor";
-			$asignar_tutor->id_defensa=$defensa_user->id;
-			$asignar_tutor->id_usuario_asignar_sub_rol=$request->tutor;
-			$asignar_tutor->id_funcion=$request->tutor_funcion;
-			$asignar_tutor->save();
-
-			$asignar_decano=new Asignar_funcion_defensa();
-			$asignar_decano->funcion="decano";
-			$asignar_decano->id_defensa=$defensa_user->id;
-			$asignar_decano->id_usuario_asignar_sub_rol=$request->decano;
-			$asignar_decano->id_funcion=$request->decano_funcion;
-			$asignar_decano->save();
 			
+			if($request->avance==100){
+				$this->validate($request,[
+				'miembro1'=>'integer|min:1|different:miembro2,miembro3,presidente,decano',
+				'miembro2'=>'integer|min:1|different:miembro1,miembro3,presidente,decano',
+				'miembro3'=>'integer|min:1|different:miembro1,miembro2,presidente,decano',
+				'presidente'=>'integer|min:1|different:miembro1,miembro2,presidente,decano',
+				'decano'=>'integer|min:1|different:miembro1,miembro2,presidente,decano'
+			],
+				['required'=>'El miempro tribunal es obligatorio',
+					'min'=>'El campo es obligatorio'
+					]);
+
+				$asignar_presidente=new Asignar_funcion_defensa();
+				$asignar_presidente->funcion="presidente";
+				$asignar_presidente->id_defensa=$defensa_user->id;
+				$asignar_presidente->id_usuario_asignar_sub_rol=$request->presidente;
+				$asignar_presidente->id_funcion=$request->presidente_funcion;
+				$asignar_presidente->save();
+
+				$asignar_miembro1=new Asignar_funcion_defensa();
+				$asignar_miembro1->funcion="miembro1";
+				$asignar_miembro1->id_defensa=$defensa_user->id;
+				$asignar_miembro1->id_usuario_asignar_sub_rol=$request->miembro1;
+				$asignar_miembro1->id_funcion=$request->miembro1_funcion;
+				$asignar_miembro1->save();
+
+				$asignar_miembro2=new Asignar_funcion_defensa();
+				$asignar_miembro2->funcion="miembro2";
+				$asignar_miembro2->id_defensa=$defensa_user->id;
+				$asignar_miembro2->id_usuario_asignar_sub_rol=$request->miembro2;
+				$asignar_miembro2->id_funcion=$request->miembro2_funcion;
+				$asignar_miembro2->save();
+
+				$asignar_miembro3=new Asignar_funcion_defensa();
+				$asignar_miembro3->funcion="miembro3";
+				$asignar_miembro3->id_defensa=$defensa_user->id;
+				$asignar_miembro3->id_usuario_asignar_sub_rol=$request->miembro3;
+				$asignar_miembro3->id_funcion=$request->miembro3_funcion;
+				$asignar_miembro3->save();
+
+				$asignar_tutor=new Asignar_funcion_defensa();
+				$asignar_tutor->funcion="tutor";
+				$asignar_tutor->id_defensa=$defensa_user->id;
+				$asignar_tutor->id_usuario_asignar_sub_rol=$request->tutor;
+				$asignar_tutor->id_funcion=$request->tutor_funcion;
+				$asignar_tutor->save();
+
+				$asignar_decano=new Asignar_funcion_defensa();
+				$asignar_decano->funcion="decano";
+				$asignar_decano->id_defensa=$defensa_user->id;
+				$asignar_decano->id_usuario_asignar_sub_rol=$request->decano;
+				$asignar_decano->id_funcion=$request->decano_funcion;
+				$asignar_decano->save();
+
+				if($request->id_ambiente!=-1){
+					$ambiente_defensa=new Defensa_ambiente($request->all());
+					$ambiente_defensa->id_defensa=$defensa_user->id;
+					$ambiente_defensa->save();	
+				}
+			}
+
 			$id_usuario=$request->id_usuario;
 			if(is_array($id_usuario))
 			{
 				foreach ($id_usuario as $id_usuarios)
 				{		
-					$est_defensa 				=new Estudiante_defensa();
-					$est_defensa->nota 			=$request->nota;
-					$est_defensa->nota_literal	=$request->nota_literal;
-					$est_defensa->observacion	=$request->observacion;
-					$est_defensa->resultado_final='0';
-					$est_defensa->id_defensa	=$defensa_user->id;
+					$est_defensa 				=new Estudiante_defensa($request->all());
 					$est_defensa->id_inscripcion_grupo_materia_plan_gestion_unidad=$id_usuarios;
+					$est_defensa->id_defensa	=$defensa_user->id;
 					$est_defensa->save();
 				}
 			}
@@ -658,9 +660,18 @@ class TitulacionController extends Controller
 
 		if($request->nombre_modalidad=="PTAANG")
 		{
-			$defensa_user->id_ambiente 		  ='2';
-			$defensa_user->facultad 		  ='FACULTAD DE CIENCIAS ECONOMICAS';
-			$defensa_user->universidad 		  ='UNIVERSIDAD MAYOR DE SAN SIMON';
+			$this->validate($request,[
+				'id_usuario'=>'required',
+				'grupo_ptaang'=>'required',
+				'modalidad_ptaang'=>'required',
+				'nota_ptaang'=>'required',
+				'version'=>'required',
+				'expedido'=>'required'],
+				[ 'id_usuario.required'=>'Tiene que ingresar un Estudiante para el registro del acta',
+				'required'=>'El campo es obligatorio',
+				]);
+			$defensa_user->facultad 	 ='FACULTAD DE CIENCIAS ECONOMICAS';
+			$defensa_user->universidad ='UNIVERSIDAD MAYOR DE SAN SIMON';
 			$defensa_user->save();
 
 			$id_usuario=$request->id_usuario;
@@ -682,17 +693,17 @@ class TitulacionController extends Controller
 
 		if($request->nombre_modalidad=="EXCELENCIA ACADEMICA" or $request->nombre_modalidad=="RENDIMIENTO ACADEMICO")
 		{
+			$this->validate($request,[
+				'id_usuario'=>'required',
+				'numero_resolucion'=>'required',
+				'fecha_resolucion'=>'required',
+				'autoridad'=>'required'],
+				[ 'id_usuario.required'=>'Tiene que ingresar un Estudiante para el registro del acta',
+				'required'=>'El campo es obligatorio',
+				]);
 			$defensa_user->numero_resolucion=$request->numero_resolucion;
 			$defensa_user->fecha_resolucion=$request->fecha_resolucion;
-			$defensa_user->id_ambiente 		  ='2';
 			$defensa_user->save();
-
-			$asignar_autoridad=new Asignar_funcion_defensa();
-			$asignar_autoridad->funcion=$request->nombre_modalidad;
-			$asignar_autoridad->id_defensa=$defensa_user->id;
-			$asignar_autoridad->id_usuario_asignar_sub_rol=$request->autoridad;
-			$asignar_autoridad->id_funcion=$request->autoridad_funcion;
-			$asignar_autoridad->save();
 
 			$id_usuario=$request->id_usuario;
 			if(is_array($id_usuario))
@@ -701,14 +712,13 @@ class TitulacionController extends Controller
 				{	
 					$est_defensa 				      =new Estudiante_defensa();
 					$est_defensa->observacion	=$request->nombre_modalidad;;
-					$est_defensa->resultado_final='0';
 					$est_defensa->id_defensa	=$defensa_user->id;
 					$est_defensa->id_inscripcion_grupo_materia_plan_gestion_unidad=$id_usuarios;
 					$est_defensa->save();
 				}
 			}	
 		}
-		return redirect()->route('titulacion.crearActa');	
+		return redirect()->route('titulacion.crearActa')->with(['mensaje3'=>'Acta creada exitosamente !!','alert-type'=>'success']);;	
 	}
 	public function show($id){
 		$usuario=Usuario::where('usuarios.id','=',$id)
@@ -727,17 +737,18 @@ class TitulacionController extends Controller
 	}
 	public function edit($id){
 		$usuario=Usuario::where('usuarios.id','=',$id)->get()->first();
-		return view('titulacion.editarRegistroActa');
+		$modalidad=Modalidad_titulacion::all()->pluck('nombre_modalidad','id');
+		return view('titulacion.editarRegistroActa',compact('usuario'));
 	}
 	public function update(Request $request, $id){
 		$usuario=User::where('users.id',$id)->get()->first();
-        $usuario->type_users_id = 2;
-        $usuario->name          = $request->name;
-        $usuario->lastname      = $request->lastname;
-        $usuario->email         = $request->email;
-        $usuario->password      = bcrypt($request->password);
-        $usuario->save();
-        return redirect()->route('titulacion.index');
+		$usuario->type_users_id = 2;
+		$usuario->name          = $request->name;
+		$usuario->lastname      = $request->lastname;
+		$usuario->email         = $request->email;
+		$usuario->password      = bcrypt($request->password);
+		$usuario->save();
+		return redirect()->route('titulacion.index');
 	}
 	public function destroy($id){
 			$usuario = Usuario::where('usuarios.id',$id)->get()->first();

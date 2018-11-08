@@ -4,15 +4,11 @@ use Illuminate\Database\Seeder;
 
 class usuarioSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run() 
     {
     	App\Usuario::create([ 
  
+			// admin
 			'doc_identidad' => '5188579',
 			'login' => 'admin',
 			'clave' => bcrypt('admin'), 
@@ -32,7 +28,7 @@ class usuarioSeeder extends Seeder
          ]);
 
     	App\Usuario::create([
-
+    		// admin
 			'doc_identidad' => '7951988',
 			'login' => 'tati',
 			'clave' => bcrypt('tati'),
@@ -52,14 +48,14 @@ class usuarioSeeder extends Seeder
          ]);
 
     	App\Usuario::create([
-
-			'doc_identidad' => '7777777',
+    		// admin
+			'doc_identidad' => '5159972',
 			'login' => 'liz',
 			'clave' => bcrypt('liz'),
-			'apellidos' => 'CASTRO CONDORI',
+			'apellidos' => 'CONDORI CASTRO',
 			'nombres' => 'LIZ',
 			'sexo' => 'FEMENINO',
-			'fecha_nac' => '1991-09-13',
+			'fecha_nac' => '1990-09-13',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -72,14 +68,54 @@ class usuarioSeeder extends Seeder
          ]);
 
     	App\Usuario::create([
+        	// decano
+			'doc_identidad' => '952772',
+			'login' => 'elmer',
+			'clave' => bcrypt('elmer'),
+			'apellidos' => 'PEREZ AMADOR',
+			'nombres' => 'ELMER',
+			'sexo' => 'MASCULINO',
+			'fecha_nac' => '1959-01-29',
+			'usuario_activo' => 'SI',
+			'inscribir_adm' => 'SI',
+			'estilo' => 'General',
+			'subir_foto' => 'SI',
+			'id_estado_civil' => '2',
+			'id_provincia' =>'39',
+			'ciudad_expedido_doc' => '2',
+			'id_tipo_doc_identidad' => '1'
 
-			'doc_identidad' => '8888888',
-			'login' => 'paola',
-			'clave' => bcrypt('paola'),
-			'apellidos' => 'ROCABADO',
-			'nombres' => 'PAMELA',
-			'sexo' => 'FEMENINO',
-			'fecha_nac' => '1993-01-02',
+         ]);
+
+    	App\Usuario::create([
+        	// director academico
+			'doc_identidad' => '1279630',
+			'login' => 'hermogenes',
+			'clave' => bcrypt('hermogenes'),
+			'apellidos' => 'CONDORI ARIAS',
+			'nombres' => 'HERMOGENES',
+			'sexo' => 'MASCULINO',
+			'fecha_nac' => '1980-02-12',
+			'usuario_activo' => 'SI',
+			'inscribir_adm' => 'SI',
+			'estilo' => 'General',
+			'subir_foto' => 'SI',
+			'id_estado_civil' => '2',
+			'id_provincia' =>'46',
+			'ciudad_expedido_doc' => '2',
+			'id_tipo_doc_identidad' => '1'
+
+         ]);
+        
+    	App\Usuario::create([
+    		// jefe de taller conta
+			'doc_identidad' => '3526566',
+			'login' => 'henry',
+			'clave' => bcrypt('henry'),
+			'apellidos' => 'OROSCO LLAVE',
+			'nombres' => 'HENRY',
+			'sexo' => 'MASCULINO',
+			'fecha_nac' => '1976-10-25',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -92,14 +128,14 @@ class usuarioSeeder extends Seeder
          ]);
 
          App\Usuario::create([
-
+         	//secretaria taller conta
 			'doc_identidad' => '7777888',
-			'login' => 'carmen',
-			'clave' => bcrypt('carmen'),
-			'apellidos' => 'SOLIZ',
-			'nombres' => 'CARMEN',
-			'sexo' => 'Femenino',
-			'fecha_nac' => '1993-01-02',
+			'login' => 'susana',
+			'clave' => bcrypt('susana'),
+			'apellidos' => 'GARCIA',
+			'nombres' => 'SUSANA',
+			'sexo' => 'FEMENINO',
+			'fecha_nac' => '1980-01-02',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -112,12 +148,12 @@ class usuarioSeeder extends Seeder
          ]);
 
          App\Usuario::create([
-
+         	//secretaria taller admin
 			'doc_identidad' => '7777666',
-			'login' => 'andrea',
-			'clave' => bcrypt('andrea'),
-			'apellidos' => 'CASTILLO',
-			'nombres' => 'ANDREA',
+			'login' => 'mery',
+			'clave' => bcrypt('mery'),
+			'apellidos' => 'ROCHA',
+			'nombres' => 'MERY',
 			'sexo' => 'FEMENINO',
 			'fecha_nac' => '1993-01-02',
 			'usuario_activo' => 'SI',
@@ -132,32 +168,12 @@ class usuarioSeeder extends Seeder
          ]);
 
          App\Usuario::create([
-
-			'doc_identidad' => '7777555',
-			'login' => 'paul',
-			'clave' => bcrypt('paul'),
-			'apellidos' => 'GONZALES',
-			'nombres' => 'PAUL',
-			'sexo' => 'MASCULINO',
-			'fecha_nac' => '1990-05-12',
-			'usuario_activo' => 'SI',
-			'inscribir_adm' => 'SI',
-			'estilo' => 'General',
-			'subir_foto' => 'SI',
-			'id_estado_civil' => '2',
-			'id_provincia' =>'39',
-			'ciudad_expedido_doc' => '2',
-			'id_tipo_doc_identidad' => '1'
-
-         ]);
-
-        App\Usuario::create([
-
-			'doc_identidad' => '4444444',
-			'login' => 'ELMER',
-			'clave' => bcrypt('elmer'),
-			'apellidos' => 'PEREZ AMADOR',
-			'nombres' => 'ELMER',
+			//jefe de taller eco
+			'doc_identidad' => '6822907',
+			'login' => 'rene',
+			'clave' => bcrypt('rene'),
+			'apellidos' => 'QUISPE CABRERA',
+			'nombres' => 'RENE',
 			'sexo' => 'MASCULINO',
 			'fecha_nac' => '1980-05-12',
 			'usuario_activo' => 'SI',
@@ -170,15 +186,16 @@ class usuarioSeeder extends Seeder
 			'id_tipo_doc_identidad' => '1'
 
          ]);
-        App\Usuario::create([
 
-			'doc_identidad' => '3333333',
+        App\Usuario::create([
+        	// Docente 1
+			'doc_identidad' => '3728642',
 			'login' => 'alvaro',
 			'clave' => bcrypt('alvaro'),
 			'apellidos' => 'ROCABADO SUAREZ',
 			'nombres' => 'ALVARO FERNANDO',
 			'sexo' => 'MASCULINO',
-			'fecha_nac' => '1975-11-08',
+			'fecha_nac' => '1970-05-30',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -191,14 +208,14 @@ class usuarioSeeder extends Seeder
          ]);
         
         App\Usuario::create([
-
-			'doc_identidad' => '5555555',
+        	// docente 2
+			'doc_identidad' => '3068828',
 			'login' => 'walter',
 			'clave' => bcrypt('walter'),
 			'apellidos' => 'ORELLANA ARAOZ',
 			'nombres' => 'WALTER',
 			'sexo' => 'MASCULINO',
-			'fecha_nac' => '1980-10-12',
+			'fecha_nac' => '1980-03-30',
 			'usuario_activo' => 'SI',
 			'inscribir_adm' => 'SI',
 			'estilo' => 'General',
@@ -209,7 +226,6 @@ class usuarioSeeder extends Seeder
 			'id_tipo_doc_identidad' => '1'
 
          ]);
-        
         
     }
 }

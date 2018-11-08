@@ -1,14 +1,14 @@
 <div class="row">
 	<!-- <div class="col-md-4 ml-auto mr-auto"> -->
 	<div class="card">
-		<div class="card-header card-header-primary text-center">
+		{{-- <div class="card-header card-header-primary text-center">
 			<p>MODALIDAD: {{ $modalidad->nombre_modalidad }}</p>
 				
-		</div>
+		</div> --}}
 		<div class="card-body">
 			{!! Form::model($usuario,['route' =>['titulacion.update', $usuario->id], 'method' => 'PUT', 'files'=>true])!!}
-			{{-- <input type="hidden" name="id_modalidad" value="{{ $modalidad->id }}"> --}}
-			{{-- <input type="hidden" name="nombre_modalidad" value="{{ $modalidad->nombre_modalidad }}"> --}}
+			{{-- <input type="hidden" name="id_modalidad" value="{{ $modalidad->id }}">
+			<input type="hidden" name="nombre_modalidad" value="{{ $modalidad->nombre_modalidad }}"> --}}
 					<h5>Informacion de l(os) Estudiante(s)</h5>
 					<hr class="lineaHorizontal">
 					@include('titulacion.partials.formInfoEstudiante')

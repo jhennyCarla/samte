@@ -19,7 +19,7 @@ $(document).on('click','.crearProf', function() {
 				'titulo_nombre': $('select[name=titulo_nombre]').val()
 		},
 			success: function(data){
-				//console.log(data);
+				console.log(data);
 				if ((data.errors)) {
 				    $("#errorProf").show();
 				    $('.error').text(data.errors['apellidos']);
@@ -30,11 +30,11 @@ $(document).on('click','.crearProf', function() {
 				    $('.error').text(data.errors['titulo_nombre']); 
 				}else {
 					$("p").remove(":contains('hidden')");
-					if(data.id_funcion==9)//9 hace referencia a la funcion presidente
+					if(data.id_funcion==4)//4 hace referencia a la funcion presidente-> dir carrera
 					{
 						$('#selectPre').append("<option value='"+data.id+"'>"+ data.nombres+" "+data.apellidos+" "+"("+data.titulo_nombre +")"+"</option>");
 					}
-					else if(data.id_funcion==10 || data.id_funcion==12)//10 hace referencia a la funcion tutor y 12 a miembro
+					else if(data.id_funcion==1)//1 hace referencia a la funcion tutor y  a miembro-->docente
 					{	
 						$('#tutor').append("<option value='"+data.id+"'>"+ data.nombres+ data.apellidos+"</option>");
 						$('#selectMiembro1').append("<option value='"+data.id+"'>"+ data.nombres+" "+ data.apellidos +" "+"("+data.titulo_nombre +")"+"</option>");

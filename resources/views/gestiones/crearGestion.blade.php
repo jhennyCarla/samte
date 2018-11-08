@@ -39,7 +39,7 @@
 					{!! Form::text('fecha_fin',null, array('placeholder'=>'Fecha Fin Gestion','id' => 'fecha-fin', 'data-date-format' => "dd-mm-yyyy",'readonly'=>'readonly')) !!}
 					</div>
 
-					{!! Form::label('habilitar_plan','*HABILITAR PLAN:',['class'=>'col-md-3']) !!}
+					<strong>{!! Form::label('habilitar_plan','*HABILITAR PLAN:',['class'=>'col-md-3']) !!}</strong>
 					<div class="table-responsive"> 
 						<table class="table table-striped table-bordered table-hover table-condensed">
 							<thead>
@@ -66,7 +66,8 @@
 					</div>
 	 				
 	 				<div class="text-center">
-          				{!! Form::button('Registrar Gestion', array('type'=> 'submit','class'=>'btn btn-primary'))!!}
+          				{!! Form::button('<i class="fa fa-folder"></i> Registrar Gestión', array('type'=> 'submit','class'=>'btn btn-success'))!!}
+          				<a href="{{ route('gestiones.index') }}" role="button" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
         			</div> 
 				{!! Form::close() !!}
 			</div>

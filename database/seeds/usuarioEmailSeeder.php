@@ -14,7 +14,7 @@ class usuarioEmailSeeder extends Seeder
         
         App\Usuario_email::create([
 
-        	'email'=>'weymar@gmail.com', 
+        	'email'=>'jhennycarlagarciaa@gmail.com', 
         	'email_activo'=>'SI', 
         	'id_usuario'=>'1', 
         	'id_tipo_email'=>'3'	

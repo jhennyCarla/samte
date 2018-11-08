@@ -17,40 +17,28 @@ class Sub_RolesController extends Controller
 {
     
     private $path = 'sub_roles';
-    public function __construct()
-    {
+    public function __construct(){
         // Filtrar todos los métodos
     
-    $this->middleware('permisos:5', ['only' => 'create','store']);
+        $this->middleware('permisos:5', ['only' => 'create','store']);
         $this->middleware('permisos:6', ['only' => 'edit','update','destroy']);
         $this->middleware('permisos:5,6', ['only' => 'index']);
     }
-    public function index()
-    {
+    public function index(){
         $subroles=Sub_rol::all();
         $sRoles=Sub_rol::join('roles','roles.id','=','sub_roles.id_rol')->select('sub_roles.id','sub_roles.nombre_sub_rol','sub_roles.descripcion_sub_rol', 'roles.nombre_rol')->get();
         return view($this->path.'.index',compact('sRoles'));
     }
 
-    
     public function create()
     {
         $rol= Rol::all();
         $subAcceso=Sub_acceso::all();
         $acceso = Acceso::all();
-        //return $rol;
         return view($this->path.'.create',compact('rol','subAcceso','acceso'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(subRolesRequest $request)
-    {
-        //return $request;
+    public function store(subRolesRequest $request){
         try {
                $subRol = new Sub_rol();
                $subRol->nombre_sub_rol = $request->nombre_sub_rol;
@@ -82,25 +70,11 @@ class Sub_RolesController extends Controller
            }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+    public function show($id){
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
+    public function edit($id){
         //$sRol = Sub_rol::findOrFail($id);
         $sRol=Sub_rol::join('roles','roles.id','=','sub_roles.id_rol')->select('sub_roles.id','sub_roles.nombre_sub_rol','sub_roles.descripcion_sub_rol', 'sub_roles.id_rol','roles.nombre_rol')->where('sub_roles.id','=',$id)->get()->first();
         $accesos=Acceso::all();
@@ -111,15 +85,7 @@ class Sub_RolesController extends Controller
         return view($this->path.'.edit', compact('sRol','accesos','subAcceso','subAccesoDefinidos', 'rol'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(subRolesRequest $request, $id)
-    {
+    public function update(subRolesRequest $request, $id){
         $sRol_editar=Sub_rol::findOrFail($id);
         $sRol_editar->nombre_sub_rol     = $request->nombre_sub_rol;
         $sRol_editar->descripcion_sub_rol= $request->desc_sub_rol;
@@ -158,14 +124,7 @@ class Sub_RolesController extends Controller
         return redirect()->route($this->path.'.index')->with($notification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+    public function destroy($id){
         
         try {
             $sRolEliminar = Sub_rol::findOrFail($id);

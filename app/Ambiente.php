@@ -19,12 +19,6 @@ class Ambiente extends Model
 	{
 		return $this->belongsTo('App\Unidad', 'id_unidad', 'id');
 	}
-
-	public function defensas()
-	{
-		return $this->hasMany('App\Defensa','id_ambiente','id');
-	}
-
 	public function defensa_ambiente()
 	{
 		return $this->hasOne('App\defensa_ambiente', 'id_ambiente', 'id');

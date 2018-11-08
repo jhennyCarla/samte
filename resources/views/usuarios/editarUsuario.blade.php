@@ -178,9 +178,10 @@
               @endif
             </div>
           </div>
-    
-          <div class="text-center">{{ Form::button(' <i class="fa fa-edit"></i> Editar Usuario', array('type'=> 'submit','class'=>'btn btn-success')) }}</div>            
+          <div class="text-center">
+            {{ Form::button(' <i class="fa fa-edit"></i> Editar Usuario', array('type'=> 'submit','class'=>'btn btn-success')) }}
             <a href="{{ route('usuarios.index') }}" role="button" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
+          </div>            
         {{ Form::close() }}
       </div><!--cierre card body-->
     </div>

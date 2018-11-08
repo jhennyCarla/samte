@@ -51,7 +51,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="card">
-  			<div class="card-header card-header-primary text-center text-muted"><h5>NUEVA ASIGNACION USUARIO</h5></div>
+  			<div class="card-header card-header-primary text-center text-muted"><h5>NUEVA ASIGNACIÓN USUARIO</h5></div>
 	  		<div class="card-body">
 				{!! Form::open(array('route' => array('accesos.validarNuevaAsignacion',$permisoUsuario->usuario->id), 'method' =>'get'), array('role'=>'form')) !!}
 					{!! Form::label('ci','Documento de Identidad:') !!}

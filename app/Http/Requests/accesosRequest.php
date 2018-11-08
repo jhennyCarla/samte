@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class accesosRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
@@ -22,7 +17,7 @@ class accesosRequest extends FormRequest
             'subRol'=>'required',
             'funcion'=>'required',
             'unidad'=>'required',
-            'sis'=>'numeric',
+            // 'sis'=>'numeric',
             'fecha_inicio'=>'required',
             'fecha_fin'=>'required|after:fecha_inicio',
         ];
@@ -32,7 +27,7 @@ class accesosRequest extends FormRequest
     {
         return[
             'subRol.required'=>'El campo descripcion ROL/SOB-ROL es requerido',
-            'sis.numeric'=>'El campo COD SIS tiene que ser un numero',
+            // 'sis.numeric'=>'El campo COD SIS tiene que ser un numero',
         ];
     }
 }

@@ -6,20 +6,13 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateDefensaAmbientes extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('defensa_ambientes', function (Blueprint $table) {
             $table->increments('id');
-
             $table->date('fecha_defensa')->nullable();
             $table->time('hora_inicio_defensa')->nullable();
             $table->time('hora_fin_defensa')->nullable();
-
             $table->integer('id_ambiente')->unsigned();
             $table->integer('id_defensa')->unsigned();
 
@@ -30,11 +23,6 @@ class CreateDefensaAmbientes extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('defensa_ambientes');

@@ -6,7 +6,7 @@
 			<div class="card-header card-header-primary text-center text-muted"><h5>CREAR NUEVO SUB-ROL PARA USUARIO</h5></div>
 			<div class="card-body">
 				<h2><a href="{{ URL::to('sub_roles') }}" role="button" class="btn btn-success"><i class="fa fa-bars"></i> LISTAR SUB-ROLES</a></h2></br>
-	 				@include('errores.msjError')
+					@include('errores.msjError')
 					{{ Form::open(array('route' =>array('sub_roles.store','rol_seleccionado'), 'method' => 'POST'), array('role'=> 'form')) }}
 						{{ csrf_field() }}
 						{{-- ingresar token ejemplo; input type="hidden" name="_token" value="{{ csrf_token() }}" --}}
@@ -38,7 +38,7 @@
 						<h2><center>LISTA DE PERMISOS A ASIGNAR</center></h2></br>
 						@include('accesos.prueba')      
 						<div class="text-center">
-							{{ Form::button('Crear Sub Rol', array('type'=> 'submit','class'=>'btn btn-primary')) }}
+							{{ Form::button('<i class="fa fa-check"></i> Crear Sub Rol', array('type'=> 'submit','class'=>'btn btn-success')) }}
 						</div>    
 					{{ Form::close() }}
 			</div>

@@ -2,7 +2,6 @@
 @section('contenido')
 <div class="container">
   <div class="row">
-    <!-- <div class="col-md-4 ml-auto mr-auto"> -->
     <div class="card">
       <div class="card-header card-header-primary text-center">
         <h5>REGISTRO DE ACTA</h5>
@@ -13,10 +12,6 @@
             {!! Form::label('modalidades','Tipo de Modalidad:',['class'=>'col-md-2'])!!}
             <div class="col-md-4">
            {{ Form::select('modalidades',$modalidades,null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'modalidades']) }}
-            </div>
-           {!! Form::label('gestion','Gestión:',['class'=>'col-md-1'])!!}
-            <div class="col-md-4">
-           {!! Form::select('gestion',$gestiones->pluck('anioGestionTipo','id'),null,['placeholder'=>'Seleccione','class'=>'form-control']) !!}
             </div>
           </div>
           <div class="text-center">

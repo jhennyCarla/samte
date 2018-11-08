@@ -66,9 +66,7 @@ class UsuariosController extends Controller
 			->nombres($request->nombre)
 			->apellido($request->apellido)
 			->orderby('apellidos','desc')->paginate(10);
-			}
-
-		 
+			} 
 		return view($this->path.'.listaUsuarios', compact('usuario'));
 	}
 	public function create(){
@@ -93,47 +91,44 @@ class UsuariosController extends Controller
 		return $response = Response::json($provincias);    
 	}
 	public function store(usuariosRequest  $request){
-			try{
-				$user=new Usuario($request->all());
-				$user->clave =bcrypt($request->numero_identidad_usuario);
-				$user->usuario_activo='SI';
-				$user->inscribir_adm='SI';
-				$user->estilo='Moderno';
-				$user->subir_foto='NO';
-				$user->save();
+		try{
+			$user=new Usuario($request->all());
+			$user->clave =bcrypt($request->numero_identidad_usuario);
+			$user->usuario_activo='SI';
+			$user->inscribir_adm='SI';
+			$user->estilo='Moderno';
+			$user->subir_foto='NO';
+			$user->save();
 					
-				$usuario_email = new Usuario_email($request->all());
-				$usuario_email->email_activo ='SI';
-				$usuario_email->id_usuario = $user->doc_identidad;//no se entiende
-				$usuario_email->save();  
+			$usuario_email = new Usuario_email($request->all());
+			$usuario_email->email_activo ='SI';
+			$usuario_email->id_usuario = $user->doc_identidad;//no se entiende
+			$usuario_email->save();  
 
-				$usuario_telefono = new Usuario_telefono($request->all());
-				$usuario_telefono->id_usuario = $user->doc_identidad;
-				$usuario_telefono->save();
+			$usuario_telefono = new Usuario_telefono($request->all());
+			$usuario_telefono->id_usuario = $user->doc_identidad;
+			$usuario_telefono->save();
 
-				$usuario_direccion = new Usuario_direccion($request->all());
-				$usuario_direccion->id_usuario = $user->doc_identidad;
-				$usuario_direccion->save();
-				$user=Usuario::all()->last();
-				$user->desc='ID de Registro: '.$user->id;
-				$user->action=3;
-				$notification= array('mensaje3' =>' Se creo el usuario exitosamente !','alert-type'=>'success');
-				event(new UsuarioNuevoBit($user));
-				return redirect()->route($this->path.'.index')->with($notification);
-				}
-				catch (Exception $e){
-				return "Fatal Error -".$e->getMessage();}  
+			$usuario_direccion = new Usuario_direccion($request->all());
+			$usuario_direccion->id_usuario = $user->doc_identidad;
+			$usuario_direccion->save();
+			$user=Usuario::all()->last();
+			$user->desc='ID de Registro: '.$user->id;
+			$user->action=3;
+			event(new UsuarioNuevoBit($user));
+			return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Se creo el usuario exitosamente !!','alert-type'=>'success']);
+		}catch (Exception $e){
+			return "Fatal Error -".$e->getMessage();}  
 	}
 	public function show($id){
-		
 		$usuario=Usuario::where('usuarios.id','=',$id)->get()->first();
-	  $usuarioEmail=Usuario_email::join('tipo_emails','tipo_emails.id','=','usuario_emails.id_tipo_email')->select('tipo_emails.nombre_tipo_email','usuario_emails.email','usuario_emails.email_activo','usuario_emails.id','tipo_emails.id as id_tipo_email')->where('usuario_emails.id_usuario',$id)->get();
+	  	$usuarioEmail=Usuario_email::join('tipo_emails','tipo_emails.id','=','usuario_emails.id_tipo_email')->select('tipo_emails.nombre_tipo_email','usuario_emails.email','usuario_emails.email_activo','usuario_emails.id','tipo_emails.id as id_tipo_email')->where('usuario_emails.id_usuario',$id)->get();
 
-	  $usuarioTelf=Usuario_telefono::join('tipo_telefonos','tipo_telefonos.id','=','usuario_telefonos.id_tipo_telefono')->select('tipo_telefonos.nombre_tipo_telefono', 'usuario_telefonos.numero_telefono','usuario_telefonos.id', 'tipo_telefonos.id as id_tipo_telefono')->where('usuario_telefonos.id_usuario','=',$id)->get();
+	  	$usuarioTelf=Usuario_telefono::join('tipo_telefonos','tipo_telefonos.id','=','usuario_telefonos.id_tipo_telefono')->select('tipo_telefonos.nombre_tipo_telefono', 'usuario_telefonos.numero_telefono','usuario_telefonos.id', 'tipo_telefonos.id as id_tipo_telefono')->where('usuario_telefonos.id_usuario','=',$id)->get();
 
-	  $usuarioDir=Usuario_direccion::join('tipo_direcciones','tipo_direcciones.id','=','Usuario_direcciones.id_tipo_direccion')->select('tipo_direcciones.nombre_tipo_direccion','Usuario_direcciones.nombre_direccion','usuario_direcciones.id','tipo_direcciones.id as id_tipo_direccion')->where('Usuario_direcciones.id_usuario','=',$id)->get();
-	  $tipo_email=Tipo_email::all()->pluck('nombre_tipo_email','id');
-	  $tipo_telefono=Tipo_telefono::all()->pluck('nombre_tipo_telefono', 'id');
+	  	$usuarioDir=Usuario_direccion::join('tipo_direcciones','tipo_direcciones.id','=','Usuario_direcciones.id_tipo_direccion')->select('tipo_direcciones.nombre_tipo_direccion','Usuario_direcciones.nombre_direccion','usuario_direcciones.id','tipo_direcciones.id as id_tipo_direccion')->where('Usuario_direcciones.id_usuario','=',$id)->get();
+	  	$tipo_email=Tipo_email::all()->pluck('nombre_tipo_email','id');
+	  	$tipo_telefono=Tipo_telefono::all()->pluck('nombre_tipo_telefono', 'id');
 	 	$tipo_direccion=Tipo_direccion::all()->pluck('nombre_tipo_direccion', 'id'); 
 		return view('usuarios.perfil', compact('usuario','usuarioEmail','usuarioTelf','usuarioDir','tipo_email','tipo_direccion','tipo_telefono','modificarEmail'));
 	} 
@@ -165,7 +160,7 @@ class UsuariosController extends Controller
 		$user->desc='ID de Registro Usuario_Telefono: '.$user->id;
 		$user->action=15;
 		event(new TelefonoEvent($user));
-		return redirect::back();
+		return redirect::back()->with(['mensaje3'=>'Teléfono creado con Exito!!','alert-type'=>'success']);;
 	} 
 	public function addDireccion(Request $request, $id){
 
@@ -178,10 +173,10 @@ class UsuariosController extends Controller
 		$user->desc='ID de Registro Usuario_Direccion: '.$user->id;
 		$user->action=18;
 		event(new DireccionEvent($user));
-		return redirect::back();
+		return redirect::back()->with(['mensaje3'=>'Dirección creado con Exito!!','alert-type'=>'success']);;
 	}
 	public function eliminarEmail($id){
-	  try {
+	  	try {
 			$email = Usuario_email::where('id',$id)->get()->first();
 			$email->desc='Elimino el Registro Usuario_E-mail: '.$email->id.' correo: '.$email->email;
 			$email->action=23;
@@ -201,7 +196,6 @@ class UsuariosController extends Controller
 			$telefono->action=17;
 				event(new TelefonoEvent($telefono));
 			$telefono->delete();
-				 flash()->success('Telefono ha sido eliminado'); 
 			return redirect()->back()->with(['mensaje3'=>'Teléfono Eliminado con Exito!!','alert-type'=>'success']);
 		} catch (Exception $e) {
 			return "Fatal Error - ".$e->getMessage();
@@ -213,8 +207,7 @@ class UsuariosController extends Controller
 			$direccion->desc='Elimino el Registro Usuario_Direccion: '.$direccion->id.' Dir: '.$direccion->nombre_direccion;
 			$direccion->action=20;
 				event(new DireccionEvent($direccion));
-			$direccion->delete();
-				 flash()->success('Direccion ha sido eliminado'); 
+			$direccion->delete(); 
 			return redirect()->back()->with(['mensaje3'=>'Dirección eliminado con Exito!!','alert-type'=>'success']);
 		} catch (Exception $e) {
 			return "Fatal Error - ".$e->getMessage();
@@ -275,46 +268,45 @@ class UsuariosController extends Controller
 		$this->validate($request,[
 			'login'=>'required|max:20|min:5, uniqued',
 			'apellidos'=>'required|string',
-      'nombres'=>'required|string',
-      'doc_identidad'=>'required|alpha_dash',
-      'id_tipo_doc_identidad'=>'required',
-      'ciudad_expedido_doc'=>'required',
-      'fecha_nac'=>'required',
-      'pais_usuario'=>'required',
-      'ciudad_usuario'=>'required',
-      'id_provincia'=>'required',
-      'sexo'=>'required',
-      'id_estado_civil'=>'required'
-		],
-		[ 
+      		'nombres'=>'required|string',
+      		'doc_identidad'=>'required|alpha_dash',
+      		'id_tipo_doc_identidad'=>'required',
+      		'ciudad_expedido_doc'=>'required',
+      		'fecha_nac'=>'required',
+      		'pais_usuario'=>'required',
+      		'ciudad_usuario'=>'required',
+      		'id_provincia'=>'required',
+      		'sexo'=>'required',
+      		'id_estado_civil'=>'required'],
+			[ 
 			'login.required'=>'El campo login de usuario es requerido',
 			'apellidos.required'=>'El campo apellidos usuario no puede estar vacio',
-      'nombres.required'=>'El campo nombres usuario no puede estar vacio',
-      'id_provincia.required'=>'El campo provicia es requerido',
-      'sexo.required'=>'El campo genero es requerido']);
+      		'nombres.required'=>'El campo nombres usuario no puede estar vacio',
+      		'id_provincia.required'=>'El campo provicia es requerido',
+      		'sexo.required'=>'El campo genero es requerido']);
 		
-				$user=Usuario::where('usuarios.id',$id)->get()->first();
-				$user->login = $request->login;
-				$user->doc_identidad = $request->doc_identidad;
-					if(!is_null($request->clave)){
-						$this->validate($request,[
+			$user=Usuario::where('usuarios.id',$id)->get()->first();
+			$user->login = $request->login;
+			$user->doc_identidad = $request->doc_identidad;
+				if(!is_null($request->clave)){
+					$this->validate($request,[
       				'clave'=>'min:5|max:30|alpha_dash'],
-							[ 'clave.required'=>'El campo login de usuario es requerido']);
+						[ 'clave.required'=>'El campo login de usuario es requerido']);
 						$user->clave = bcrypt($request->clave);
-					}
-				$user->apellidos=$request->apellidos;
-				$user->nombres=$request->nombres;
-				$user->sexo=$request->sexo;
-				$user->fecha_nac=$request->fecha_nac;
-				$user->id_estado_civil=$request->id_estado_civil;
-				$user->id_provincia=$request->id_provincia;
-				$user->ciudad_expedido_doc=$request->ciudad_expedido_doc;
-				$user->id_tipo_doc_identidad=$request->id_tipo_doc_identidad;
-				$user->save();
-				$user->desc='Modifico el Registro Usuario: '.$user->id;
-				$user->action=4;
-				event(new UsuarioNuevoBit($user));
-				return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Usuario Modificado con Exito!!','alert-type'=>'success']);
+				}
+			$user->apellidos=$request->apellidos;
+			$user->nombres=$request->nombres;
+			$user->sexo=$request->sexo;
+			$user->fecha_nac=$request->fecha_nac;
+			$user->id_estado_civil=$request->id_estado_civil;
+			$user->id_provincia=$request->id_provincia;
+			$user->ciudad_expedido_doc=$request->ciudad_expedido_doc;
+			$user->id_tipo_doc_identidad=$request->id_tipo_doc_identidad;
+			$user->save();
+			$user->desc='Modifico el Registro Usuario: '.$user->id;
+			$user->action=4;
+			event(new UsuarioNuevoBit($user));
+			return redirect()->route($this->path.'.index')->with(['mensaje3'=>'Usuario Modificado con Exito!!','alert-type'=>'success']);
 	}
 	public function destroy($id){
 	  try{
@@ -361,12 +353,12 @@ class UsuariosController extends Controller
 	}
 	public function perfil(){
 		$usuario=Usuario::where('usuarios.id','=',auth()->user()->id)->get()->first();
-	  $usuarioEmail=Usuario_email::join('tipo_emails','tipo_emails.id','=','usuario_emails.id_tipo_email')->select('tipo_emails.nombre_tipo_email','usuario_emails.email','usuario_emails.email_activo','usuario_emails.id','tipo_emails.id as id_tipo_email')->where('usuario_emails.id_usuario','=',auth()->user()->id)->get();
-	  $usuarioTelf=Usuario_telefono::join('tipo_telefonos','tipo_telefonos.id','=','usuario_telefonos.id_tipo_telefono')->select('tipo_telefonos.nombre_tipo_telefono', 'usuario_telefonos.numero_telefono','usuario_telefonos.id', 'tipo_telefonos.id as id_tipo_telefono')->where('usuario_telefonos.id_usuario','=',auth()->user()->id)->get();
-	  $usuarioDir=Usuario_direccion::join('tipo_direcciones','tipo_direcciones.id','=','Usuario_direcciones.id_tipo_direccion')->select('tipo_direcciones.nombre_tipo_direccion','Usuario_direcciones.nombre_direccion','usuario_direcciones.id','tipo_direcciones.id as id_tipo_direccion')->where('Usuario_direcciones.id_usuario','=',auth()->user()->id)->get();
+	  	$usuarioEmail=Usuario_email::join('tipo_emails','tipo_emails.id','=','usuario_emails.id_tipo_email')->select('tipo_emails.nombre_tipo_email','usuario_emails.email','usuario_emails.email_activo','usuario_emails.id','tipo_emails.id as id_tipo_email')->where('usuario_emails.id_usuario','=',auth()->user()->id)->get();
+	  	$usuarioTelf=Usuario_telefono::join('tipo_telefonos','tipo_telefonos.id','=','usuario_telefonos.id_tipo_telefono')->select('tipo_telefonos.nombre_tipo_telefono', 'usuario_telefonos.numero_telefono','usuario_telefonos.id', 'tipo_telefonos.id as id_tipo_telefono')->where('usuario_telefonos.id_usuario','=',auth()->user()->id)->get();
+	  	$usuarioDir=Usuario_direccion::join('tipo_direcciones','tipo_direcciones.id','=','Usuario_direcciones.id_tipo_direccion')->select('tipo_direcciones.nombre_tipo_direccion','Usuario_direcciones.nombre_direccion','usuario_direcciones.id','tipo_direcciones.id as id_tipo_direccion')->where('Usuario_direcciones.id_usuario','=',auth()->user()->id)->get();
 		$tipo_email=Tipo_email::all()->pluck('nombre_tipo_email','id');
-	  $tipo_telefono=Tipo_telefono::all()->pluck('nombre_tipo_telefono', 'id');
-	  $tipo_direccion=Tipo_direccion::all()->pluck('nombre_tipo_direccion', 'id'); 
+	  	$tipo_telefono=Tipo_telefono::all()->pluck('nombre_tipo_telefono', 'id');
+	  	$tipo_direccion=Tipo_direccion::all()->pluck('nombre_tipo_direccion', 'id'); 
 		
 	  	return view('usuarios.perfil', compact('usuario','usuarioEmail','usuarioTelf','usuarioDir','tipo_email','tipo_telefono','tipo_direccion'));  
 	}
@@ -381,13 +373,12 @@ class UsuariosController extends Controller
 		$usuario=Auth::User();
 	  	if(Auth::user()->login==$request->nuevo_login){
 			return redirect()->route($this->path.'.loginModificar')->with('mensaje', 'usted a ingresado su mismo login.');
-			}else{
+		}else{
 			$usuario->login = $request->nuevo_login;
 			$usuario->save();
 			$usuario->desc='El usuario modifico el login: '.$usuario->id.' con CI: '.$usuario->doc_identidad;
 			$usuario->action=24;
 			event(new UsuarioNuevoBit($usuario));
-			$notification = array('mensaje3' =>'Login guardado correctamente !','alert-type'=>'success');
 			return back()->with(['mensaje3' =>'Login guardado correctamente !','alert-type'=>'success']);
 		}
 	}
@@ -431,11 +422,11 @@ class UsuariosController extends Controller
 	}
 	public function bitacoraUser($id){
 		$bitacoras=bitacora::orderBy('fecha_bitacora','desc')->join('tipo_operacion_bitacoras','tipo_operacion_bitacoras.id','=','bitacoras.id_tipo_op_bitacora')->where('bitacoras.id_usuario',$id)->paginate(10);
-		return view('usuarios.verBitacora',compact('bitacoras'));
+		return view('usuarios.bitacora',compact('bitacoras'));
 	}
-  public function asignarClaveNotas($id){
+  	public function asignarClaveNotas($id){
     	$usuario=Usuario::where('id',$id)->get()->first();
     	$tarjeta=Clave_tarjeta::where('id_usuario',$id)->orderBy('updated_at','desc')->get()->first();
      	return view('usuarios.asignarClaveNotas',compact('usuario','tarjeta'));
-  }
+  	}
 }

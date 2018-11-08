@@ -39,7 +39,7 @@
 					<h2><center>LISTA DE PERMISOS YA ASIGNADOS</center></h2></br>
 					@include('accesos.sub_accesos_permitidos')
 					<div class="text-center">
-						{!! Form::button('EDITAR SUB ROL', array('type'=> 'submit','class'=>'btn btn-primary')) !!}
+						{!! Form::button('<i class="fa fa-edit"></i> EDITAR SUB ROL', array('type'=> 'submit','class'=>'btn btn-success')) !!}
 					</div>
 				{!! Form::close() !!}
  			</div><!--cierre card body-->

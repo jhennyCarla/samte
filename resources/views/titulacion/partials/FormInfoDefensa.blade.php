@@ -20,15 +20,22 @@
 
 <div class="form-group row">
 	{!! Form::label('fecha_defensa','Fecha Defensa:',['class'=>'col-md-2'])!!}
-	<div class="col-md-2">
-	{!! Form::date('fecha_defensa', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+	
+	<div class="col-md-3">
+		<div class="input-group mb-3">
+	        {!! Form::text('fecha_nac',null,array('placeholder'=>'AAAA/MM/DD','id'=>'datepicker','class'=>'form-control')) !!}
+	        <div class="input-group-append text-center">
+	            <span class="input-group-text"  style="background-color:#17a2b84d; "><i class="fa fa-calendar" style="color:#ffa31a;"></i></span>
+	        </div>
+	    </div>
 	</div>
+
 	{!! Form::label('hora_inicio_defensa','Hora Inicio Defensa:',['class'=>'col-md-2 text-right'])!!}
-	<div class="col-md-2">
+	<div class="col-md-1">
 	{!! Form::datetime('hora_inicio_defensa', \Carbon\Carbon::now()->format('h:i:s'), ['class' => 'form-control']) !!}
 	</div>
 	{!! Form::label('hora_fin_defensa','Hora Fin Defensa:',['class'=>'col-md-2 text-right'])!!}
-	<div class="col-md-2">
+	<div class="col-md-1">
 	{!! Form::datetime('hora_fin_defensa', \Carbon\Carbon::now()->format('h:i:s'), ['class' => 'form-control']) !!}
 	</div>
 </div>

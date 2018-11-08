@@ -210,6 +210,7 @@ class ScriptController extends Controller
                                 $titulo=Titulo::where('titulo_descripcion','like',substr($rowAux->titulo,0,3).'%')
                                 ->orwhere('titulo_abreviado','like','%'.$rowAux->titulo.'%')
                                 ->first();
+
                                 if(is_null($titulo)){   
                                     Titulo::Create([
                                         'titulo_abreviado'=>$rowAux->titulo,
@@ -218,7 +219,7 @@ class ScriptController extends Controller
                                     ]);
                                 $usuarioTitulo->id_titulo=Titulo::all()->last()->id;
                                 }else
-                                // return "aki stoy ".$titulo." 13wdssdsdsddds";
+                                // return "aki stoy ".$titulo." 13wdssdsdsddds"; 
                                 $usuarioTitulo->id_titulo=$titulo->id;
                             }
 
@@ -294,9 +295,14 @@ class ScriptController extends Controller
                                     ]);
                                 $usuarioTitulo->id_titulo=Titulo::all()->last()->id;
                                 }else
+                                
                                 $usuarioTitulo->id_titulo=$titulo->id;
                             }
-                    
+
+                    // agrege eseto tatiii
+                    $usuarioTitulo->save();
+                    // hasta aqui tati
+
                     Usuario_asignar_sub_rol::create([
                         'id_usuario'=>$ultimo->last()->id,
                         'id_sub_rol'=>$idSubRol,

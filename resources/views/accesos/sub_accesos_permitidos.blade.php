@@ -2,12 +2,12 @@
 	<tbody>
 		@foreach($accesos as $acceso)
 			<tr>
-				<td colspan="2" class="table-info">{{ $acceso->nombre_acceso }}</td>
+				<td colspan="2" class="table-info"><i class="{{$acceso->icono_acceso}}"></i> {{ $acceso->nombre_acceso }}</td>
 			</tr>
 			@foreach($subAcceso as $permisos)
 				@if($permisos->acceso->nombre_acceso == $acceso->nombre_acceso)
 					<tr>
-						<td>{{ $permisos->nombre_sub_acceso}}</td>
+						<td style="text-indent: 1em;"> <i class="{{$permisos->icono_sub_acceso}}"></i> {{ $permisos->nombre_sub_acceso}}</td>
 						<td>
 						<?php $input = '<input name="permiso[]" value="'.$permisos->id.'" type="checkbox">'; ?>
 						@foreach($subAccesoDefinidos as $existe)

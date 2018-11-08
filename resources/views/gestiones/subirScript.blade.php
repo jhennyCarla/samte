@@ -12,7 +12,7 @@
 				<br>
 				<br>
 				<br>
-				<p><strong>IMPORTANTE:</strong>Para trabajar con este módulo recordar lo siguiente:<br>
+				<p style="font-size: 0.9em;line-height: 1.3;"><strong>IMPORTANTE:</strong> Para trabajar con este módulo recordar lo siguiente:<br>
 				1.- Debe haberse cargado primero el archivo de estudiantes inscritos en la gestión correspondiente.<br>
 				2.- Cargar el archivo en formato XLS,XLSX O CSV conteniendo la siguiente informacion<br>
 				CABECERA:cod_estudiante;ci;apellidos;nombres;fecha_nac;genero;planGestion;nombrePlan;nivel;materia;tipoMateria;GRUPO;docente;ciDoc;nombredocente;apellidodocente;generoDocente;fechaNacDoc;tituloDocente<br>

@@ -2,23 +2,6 @@
 	<a class="crearProf btn btn-info btn-sm " href="#" data-toggle="modal"><i class="fa fa-user "></i> nuevo Profesional</a>
 </div>
 	<br>
-<div class="form-group row">
-	{!! Form::label('presidente','Presidente:',['class'=>'col-md-2'])!!}
-	<div class="col-md-5">
-		{{ csrf_field() }}
-	<select name="presidente" class="form-control" id="selectPre" >
-        <option value='-1'>Seleccione</option>
-            @foreach ($funcionPresidentes as $presidente)
-            <option value="{{$presidente->id_us_sig_sub_rol}}" class="edit{{$presidente->id}}">{{$presidente->nombre_completo_user}} ({{ $presidente->titulo_abreviado}})</option>
-            @endforeach 
-            {{-- <input type="hidden" name="presidente_funcion" value="{{ $presidente->id }}"> --}}
-    </select>
-
-	</div>
-	<div class="col-md-2 col-lg-2">
-		<a href="#" class="editPre btn btn-success btn-sm"  id="editPre" data-toggle="modal"><i class="fa fa-pencil"></i> Modificar </a>
-	</div>
-</div>
 
 <div class="form-group row">
 	{!! Form::label('miembro1','Miembro 1:',['class'=>'col-md-2'])!!}
@@ -30,6 +13,9 @@
             @endforeach 
             <input type="hidden" name="miembro1_funcion" value="{{ $miembro->id }}">
     </select>
+	@if($errors->has('miembro1'))
+      	{!! $errors->first('miembro1','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 	<div class="col-md-2">
 	<a class="btn btn-success btn-sm" href="#modificarMi1" data-target="#modificarMi1" data-toggle="modal"><i class="fa fa-pencil"></i>  Modificar</a>
@@ -48,6 +34,9 @@
             <input type="hidden" name="miembro2_funcion" value="{{ $miembro->id }}">
      
     </select>
+	@if($errors->has('miembro2'))
+      	{!! $errors->first('miembro2','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 	<div class="col-md-2">
 	<a class="btn btn-success btn-sm" href="#modificarMi2" data-target="#modificarMi2" data-toggle="modal"><i class="fa fa-pencil"></i>  Modificar</a>
@@ -64,6 +53,9 @@
             @endforeach 
             <input type="hidden" name="miembro3_funcion" value="{{ $miembro->id }}">
     </select>
+	@if($errors->has('miembro3'))
+      	{!! $errors->first('miembro3','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	</div>
 	<div class="col-md-2">
 	<a class="btn btn-success btn-sm" href="#modificarMi3" data-target="#modificarMi3" data-toggle="modal"><i class="fa fa-pencil"></i>  Modificar</a>
@@ -83,24 +75,51 @@
     </select>
 	{{-- {!! Form::select('tutor',$funcionTutor->pluck('nombre_completo_user','id'),null,['placeholder' => 'Seleccione','class'=>'form-control'])!!} --}}
 	</div>
+	@if($errors->has('tutor'))
+      	{!! $errors->first('tutor','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	<div class="col-md-2">
 	<a class="btn btn-success btn-sm" href="#modificarTutor" data-target="#modificarTutor" data-toggle="modal"><i class="fa fa-pencil"></i>  Modificar</a>
 	</div>
 </div>
+<div class="form-group row">
+	{!! Form::label('presidente','Presidente:',['class'=>'col-md-2'])!!}
+	<div class="col-md-5">
+		{{ csrf_field() }}
+	<select name="presidente" class="form-control" id="selectPre" >
+        <option value='-1'>Seleccione</option>
+            @foreach ($funcionPresidentes as $presidente)
+            <option value="{{$presidente->id_us_sig_sub_rol}}" class="edit{{$presidente->id}}">{{$presidente->nombre_completo_user}} ({{ $presidente->titulo_abreviado}})</option>
+            @endforeach 
+            <input type="hidden" name="presidente_funcion" value="{{ $presidente->id }}">
+    </select>
+	@if($errors->has('presidente'))
+      	{!! $errors->first('presidente','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
+	</div>
+	<div class="col-md-2 col-lg-2">
+		<a href="#" class="editPre btn btn-success btn-sm"  id="editPre" data-toggle="modal"><i class="fa fa-pencil"></i> Modificar </a>
+	</div>
+</div>
+
+
 
 <div class="form-group row">
 	{!! Form::label('decano','Decano:',['class'=>'col-md-2'])!!}
 	<div class="col-md-5">
-	<select name="decano" class="form-control" id="decano" >
+	<select name="decano" class="form-control" id="decano">
         <option value='-1'>Seleccione</option>
             @foreach ($funcionDecano as $decano)
             <option value="{{$decano->id_us_sig_sub_rol}}" class="edit{{$decano->id}}">{{$decano->nombre_completo_user}} ({{ $decano->titulo_abreviado}})</option>
             @endforeach
-            {{-- <input type="hidden" name="decano_funcion" value="{{ $decano->id}}"> --}}
+            <input type="hidden" name="decano_funcion" value="{{ $decano->id}}">
            
     </select>
 	{{-- {!! Form::select('decano',$funcionDecano->pluck('nombre_completo_user','id'),null,['placeholder' => 'Seleccione','class'=>'form-control'])!!} --}}
 	</div>
+	@if($errors->has('decano'))
+      	{!! $errors->first('decano','<p class="rounded msjAlert">:message</p>') !!}
+	@endif
 	<div class="col-md-2">
 	<a class="btn btn-success btn-sm" href="#modificarDecano" data-target="#modificarDecano" data-toggle="modal"><i class="fa fa-pencil"></i>  Modificar</a>
 	</div>

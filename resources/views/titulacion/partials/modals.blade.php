@@ -38,15 +38,17 @@
 						<div class="form-group row">
 							{!! Form::label('id_funcion','* Funcion:', ['class'=>'col-lg-2']) !!}
 							<div class="col-lg-4">
-							{!! Form::select('id_funcion',$funciones->pluck('nombre_funcion','id'),null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'descripcion_funcion','required'=>'required']) !!}
+							{{-- {!! Form::select('id_funcion',$funciones->pluck('nombre_funcion','id'),null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'descripcion_funcion','required'=>'required']) !!} --}}
+							
+							{!! Form::select('id_funcion',array('12'=>'PRESIDENTE','13'=>'TUTOR','11'=>'DECANO','14'=>'MIEMBRO'),null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'descripcion_funcion','required'=>'required'])!!}
 							</div>
 							{!! Form::label('titulo_nombre','* Titulo:', ['class'=>'col-lg-2']) !!}
 							<div class="col-lg-4">
 								<select name="titulo_nombre" class="form-control" id="titulo_nombre" >
 										<option value='-1'>Seleccione</option>
-				            @foreach ($titulos as $titulo)
-				            <option value="{{$titulo->titulo_abreviado}}">{{$titulo->titulo_descripcion}} ({{ $titulo->titulo_abreviado}})</option>
-				            @endforeach
+				            		@foreach ($titulos as $titulo)
+				            		<option value="{{$titulo->titulo_abreviado}}">{{$titulo->titulo_descripcion}} ({{ $titulo->titulo_abreviado}})</option>
+				            		@endforeach
     						</select>
 							</div>
 						</div>
@@ -63,7 +65,7 @@
 
 
 {{-- modificar presidente --}}
-<div id="editPres" class="modal fade" roles="dialog">
+{{-- <div id="editPres" class="modal fade" roles="dialog">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -99,6 +101,8 @@
 					{!! Form::label('id_funcion','* Funcion:', ['class'=>'col-lg-2']) !!}
 					<div class="col-lg-4">
 						{!! Form::select('id_funcion',$funciones->pluck('nombre_funcion','id'),null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'id_funcion2','required'=>'required']) !!}
+						{!! Form::select('id_funcion',array('12'=>'PRESIDENTE','13'=>'TUTOR','11'=>'DECANO','14'=>'MIEMBRO'),null, ['placeholder'=> 'Seleccione', 'class' => 'form-control','id'=>'descripcion_funcion','required'=>'required'])!!}
+						
 					</div>
 					   {{ csrf_field()}} 
 					{!! Form::label('titulo_nombre','* Titulo:', ['class'=>'col-lg-2']) !!}
@@ -115,7 +119,7 @@
 	
 	</div>	
 </div>
-
+ --}}
 
 {{-- Ambientes --}}
 <div id="create" class="modal fade" role="dialog">

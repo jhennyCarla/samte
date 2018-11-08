@@ -12,7 +12,7 @@
 							<tr class="text-center table-info">
 								<th class="text-center">Nro</th>
 							    <th class="text-center">NOMBRE ROL</th>
-							    <th class="text-center">DESCRIPCION</th>
+							    <th class="text-center">DESCRIPCIÓN</th>
 							    <th class="text-center">MODIFICAR</th>
 							    <th class="text-center">ELIMINAR</th>
 							</tr>

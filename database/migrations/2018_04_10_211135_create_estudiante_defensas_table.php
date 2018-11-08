@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateEstudianteDefensasTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('estudiante_defensas', function (Blueprint $table) {
@@ -18,7 +13,7 @@ class CreateEstudianteDefensasTable extends Migration
             $table->integer('nota')->nullable();
             $table->string('nota_literal',20)->nullable();
             $table->string('resultado_final',20)->nullable();
-            $table->string('observacion',300)->default('NINGUNA');
+            $table->string('observacion',300)->nullable()->default('NINGUNA');
             
             $table->integer('id_inscripcion_grupo_materia_plan_gestion_unidad')->unsigned();
             $table->integer('id_defensa')->unsigned();
@@ -30,11 +25,7 @@ class CreateEstudianteDefensasTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    
     public function down()
     {
         Schema::dropIfExists('estudiante_defensas');

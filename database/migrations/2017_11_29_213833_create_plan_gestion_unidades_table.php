@@ -19,7 +19,7 @@ class CreatePlanGestionUnidadesTable extends Migration
             $table->integer('id_plan')->default('0')->unsigned();
             $table->integer('id_unidad')->default('0')->unsigned();
             $table->enum('activo',['SI','NO']);
-            $table->enum('activo_plan',['SI','NO']);
+            $table->enum('activo_plan',['SI','NO'])->default('NO');
             
             $table->foreign('id_gestion')->references('id')->on('gestiones')->onDelete('cascade');
             $table->foreign('id_plan')->references('id')->on('planes')->onDelete('cascade');

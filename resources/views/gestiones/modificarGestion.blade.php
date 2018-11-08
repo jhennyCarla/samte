@@ -82,9 +82,10 @@
 					</tr>
 						@endforeach 
 					</table>
-				 <div class="text-center">
-				          {!! Form::button('Modificar Gestion', array('type'=> 'submit','class'=>'btn btn-primary'))!!}
-				        </div> 
+				<div class="text-center">
+				          {!! Form::button('<i class="fa fa-edit"></i> Modificar Gestion', array('type'=> 'submit','class'=>'btn btn-success'))!!}
+				          <a href="{{ route('gestiones.index') }}" role="button" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
+				</div> 
 				{!! Form::close() !!}
 			</div>
 		</div>

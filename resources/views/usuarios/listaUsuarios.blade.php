@@ -6,7 +6,7 @@
 		<div class="card">
 			<div class="card-header card-header-primary text-center text-muted"><h5>LISTA DE USUARIOS EN EL SISTEMA</h5></div>
 			<div class="card-body">
-				<h3><a href="{{ URL::to('usuarios/create') }}" role="button" class="btn btn-success"><i class="fa fa-user"></i>  CREAR UN USUARIO</a></h3>
+				<h3><a href="{{ URL::to('usuarios/create') }}" role="button" class="btn btn-success"><i class="fa fa-user-plus"></i>  CREAR UN USUARIO</a></h3>
 				<!--BUSCADOR DE USUARIO-->
 				{!! Form::open(['route' => 'usuarios.index','method' =>'GET','class'=>'navbar-form pull-rigth']) !!}
 					@include('accesos.lista')

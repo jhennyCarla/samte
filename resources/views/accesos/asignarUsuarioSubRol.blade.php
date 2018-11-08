@@ -3,8 +3,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="card">
-  		<div class="card-header card-header-primary text-center text-muted"><h5>BUSCAR ACCESOS DE USUARIO</h5></div>
-  		<div class="card-body">
+		<div class="card-header card-header-primary text-center text-muted"><h5>BUSCAR ACCESOS DE USUARIO</h5></div>
+		<div class="card-body">
 				{!! Form::open(array('route' => array('accesos.index'), 'method' =>'get'), array('role'=>'form')) !!}
 				@include('accesos.lista')
 				{!! Form::close() !!}
@@ -42,18 +42,18 @@
 																Periodo: desde {{ $permisos->fecha_inicio	 }} hasta {{ $permisos->fecha_fin  }} <br>
 																Activo:{{ $permisos->activo}} 
 																	@if($permisos->activo=='SI')
-		                								<a href="{{ route('accesos.modActivo',$permisos->id)}}" type="button" class="btn btn-danger btn-responsive btn-sm">Desactivar</a>
-		             									@else
-																		<a href="{{ route('accesos.modActivo',$permisos->id)}}" type="button" class="btn btn-success btn-responsive btn-sm">Activar</a>
-		              								@endif 
-															<td><a href="{{ route('accesos.modificarAsignacion',$permisos->id)}}" type="button" class="btn btn-success glyphicon glyphicon-edit">Modificar</a></td>
+														<a href="{{ route('accesos.modActivo',$permisos->id)}}" role="button" class="btn btn-danger btn-responsive btn-sm"><i class="fa fa-close"></i> Desactivar</a>
+														@else
+															<a href="{{ route('accesos.modActivo',$permisos->id)}}" role="button" class="btn btn-success btn-responsive btn-sm"><i class="fa fa-plus"></i> Activar</a>
+													@endif 
+															<td><a href="{{ route('accesos.modificarAsignacion',$permisos->id)}}" role="button" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Modificar</a></td>
 															</td>
 														@endif
 													</tr>
 												</table>
 											@endforeach
 										</td>
-										<td class="text-center rowspan="1"><a href="{{ route('accesos.nuevaAsignacion', $usuario->id) }}" type="button" class="btn btn-success btn-responsive glyphicon glyphicon-edit">Nueva Asignacion</a></td>
+										<td class="text-center rowspan="1"><a href="{{ route('accesos.nuevaAsignacion', $usuario->id) }}" role="button" class="btn btn-primary btn-responsive"><i class="fa fa-plus"></i> Nueva Asignacion</a></td>
 									</tr>
 								@endforeach
 						

@@ -13,7 +13,7 @@ class usuarioDireccionSeeder extends Seeder
     {
         App\Usuario_direccion::create([
 
-        	'nombre_direccion'=>'AV. AROMA', 
+        	'nombre_direccion'=>'AV. ZARATE VILLCA', 
         	'id_usuario'=>'1', 
         	'id_tipo_direccion'=>'1'
          ]);
