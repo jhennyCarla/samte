@@ -182,13 +182,11 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
-			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			->where('d.cod_plan',$planOficial)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::where('cod_plan','=',$planOficial)->get();
-
 		}elseif($request->carrera==""){
 		$usuarios=Usuario::identidad($request->ci)
 			->nombres($request->nombre)
@@ -204,39 +202,13 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
-			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
-			// ->wherenotin('g.id', ['id_defensa'])
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			// if($request->carrera)
 			// ->where('d.id',$request->carrera)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::all();
-
-			$usuarioCompleto=Usuario::identidad($request->ci)
-			->nombres($request->nombre)
-			->apellido($request->apellido)
-			// ->with('usuario_asignar_sub_roles')
-			->join('usuario_asignar_sub_roles as a','a.id_usuario','=','usuarios.id')
-			->join('inscripciones as b','b.id_usuario_asignar_sub_rol','=','a.id')
-			->join('plan_gestion_unidades as c','c.id','=','b.id_plan_gestion_unidad')
-			->join('planes as d','d.id','=','c.id_plan')
-			->join('inscripcion_grupo_materia_plan_gestion_unidades as e','e.id_inscripcion','=','b.id')
-			->join('estudiante_defensas as f','f.id_inscripcion_grupo_materia_plan_gestion_unidad','=','e.id')
-			->join('defensas as g','g.id','=','f.id_defensa')
-			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
-			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
-			->join('materias as j','j.id','=','i.id_materia')
-			->leftJoin('cds as r', 'r.id_defensa','=','g.id')
-			->where('a.id_sub_rol',11)
-			// ->wherenotin('g.id', ['id_defensa'])
-			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
-			// if($request->carrera)
-			// ->where('d.id',$request->carrera)
-			->orderby('apellidos','desc')->paginate(10);
-
-			$resultado= $usuarioCompleto->union($usuarios)->get();
-			return $resultado;		
+			
 		}else{
 		$usuarios=Usuario::identidad($request->ci)
 			->nombres($request->nombre)
@@ -252,16 +224,13 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
-			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			// if($request->carrera)
 			->where('d.id',$request->carrera)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::all();
-
-
-			// return $usuarios;
+			
 		}// return $planes;
 	   return view('titulacion.registrarCd',compact('usuarios','planes'));
 	}
