@@ -52,7 +52,7 @@
                 <td class="text-center"><a target="_black" role="button" href="#" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Ver Informe" id="reporteMes"><i class="fa fa-file-pdf-o" style="font-size:50px;color:red;"></i>  Ver informe (pdf)</a>
                 </td>
                 <td class="text-center">
-                  <a target="_black" role="button" href="#" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
+                  <a target="_black" role="button" href="{{ route('reporteExcelMes') }}"  class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
                 </td>
               </tr>
             </tbody>
@@ -73,8 +73,10 @@
                 <td class="text-center"><a target="_black" role="button" href="{{ route('reporteCarrera.pdf') }}" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Ver Informe" id="reporteCarrera"><i class="fa fa-file-pdf-o" style="font-size:50px;color:red;"></i>  Ver informe (pdf)</a>
                 </td>
                 <td class="text-center">
-                  <a target="_black" role="button" href="#" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
+                  <a target="_black" role="button" href="{{ route('reporteExcelCarrera') }} " class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
                 </td>
+
+
               </tr>
             </tbody>
           </table>
@@ -94,7 +96,7 @@
                 <td class="text-center"><a target="_black" role="button" href="{{ route('reporteModalidad.pdf') }}" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Ver Informe" id="reporteModalidad"><i class="fa fa-file-pdf-o" style="font-size:50px;color:red;"></i>  Ver informe (pdf)</a>
                 </td>
                 <td class="text-center">
-                  <a target="_black" role="button" href="#" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
+                  <a target="_black" role="button" href="{{ route('reporteExcelModalidad') }}" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
                 </td>
               </tr>
             </tbody>
@@ -115,7 +117,7 @@
                 <td class="text-center"><a target="_black" role="button" href="{{ route('reporteGenero.pdf') }}" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Ver Informe" id="reporteGenero"><i class="fa fa-file-pdf-o" style="font-size:50px;color:red;"></i>  Ver informe (pdf)</a>
                 </td>
                 <td class="text-center">
-                  <a target="_black" role="button" href="#" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
+                  <a target="_black" role="button" href="{{ route('reporteExcelGenero') }}" class="btn btn-basic text-dark" data-toggle="tooltip" data-placement="top" title="Exportar Informe"><i class="fa fa-file-excel-o" style="font-size:50px;color:green;"></i>  Exportar informe (csv)</a>
                 </td>
               </tr>
             </tbody>

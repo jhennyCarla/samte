@@ -44,9 +44,14 @@ Route::get('titulacion/generar/reporteGenero/','TitulacionController@reporte_gen
 
 Route::any('titulacion/generar/reporteMes/{anio}/{periodo}','TitulacionController@reporte_mes')->name('titulacion.reporteMes');
 Route::any('titulacion/generar/reporteCarrera/{anio}/{periodo}','TitulacionController@reporte_carrera')->name('titulacion.reporteCarrera');
-Route::any('titulacion/generar/reporteModalidad/{anio}/{periodo}','TitulacionController@reporte_modalidad')->name('titulacion.reporteMpdalidad');
+Route::any('titulacion/generar/reporteModalidad/{anio}/{periodo}','TitulacionController@reporte_modalidad')->name('titulacion.reporteModalidad');
 Route::any('titulacion/generar/reporteGenero/{anio}/{periodo}','TitulacionController@reporte_genero')->name('titulacion.reporteGenero');
 Route::get('titulacion/generar/reporteLista/','TitulacionController@reporte_lista')->name('reporteLista.pdf');
+
+Route::any('titulacion/generar/reporteExcelMes/','TitulacionController@reporte_excel_mes')->name('reporteExcelMes');
+Route::any('titulacion/generar/reporteExcelCarrera/','TitulacionController@reporte_excel_carrera')->name('reporteExcelCarrera');
+Route::any('titulacion/generar/reporteExcelModalidad/','TitulacionController@reporte_excel_modalidad')->name('reporteExcelModalidad');
+Route::any('titulacion/generar/reporteExcelGenero/','TitulacionController@reporte_excel_genero')->name('reporteExcelGenero');
 // &&&&&&&&&&&&&&&&
 
 // Examen de grado

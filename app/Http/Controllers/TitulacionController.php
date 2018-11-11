@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ use App\cd;
 use App\Gestion;
 use App\plan_gestion_unidad;
 use Jenssegers\Date\Date;
-
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Auth;
 class TitulacionController extends Controller
@@ -164,6 +164,7 @@ class TitulacionController extends Controller
 	}
 	public function registrarCd(Request $request){
 		$usuarioLogueado=Usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')->where('a.id',Auth::user()->id)->where('activo','SI')->select('usuario_asignar_sub_roles.id_unidad')->first();
+
 		$planOficial=$this->planUsuarioLogueado($usuarioLogueado->id_unidad);
 		// return $request->carrera;
 		if($planOficial!='vacio')
@@ -181,11 +182,13 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
+			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			->where('d.cod_plan',$planOficial)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::where('cod_plan','=',$planOficial)->get();
+
 		}elseif($request->carrera==""){
 		$usuarios=Usuario::identidad($request->ci)
 			->nombres($request->nombre)
@@ -201,15 +204,16 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
+			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
+			// ->wherenotin('g.id', ['id_defensa'])
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			// if($request->carrera)
 			// ->where('d.id',$request->carrera)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::all();
-			
-		}else{
-		$usuarios=Usuario::identidad($request->ci)
+
+			$usuarioCompleto=Usuario::identidad($request->ci)
 			->nombres($request->nombre)
 			->apellido($request->apellido)
 			// ->with('usuario_asignar_sub_roles')
@@ -223,16 +227,55 @@ class TitulacionController extends Controller
 			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
 			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
 			->join('materias as j','j.id','=','i.id_materia')
+			->leftJoin('cds as r', 'r.id_defensa','=','g.id')
+			->where('a.id_sub_rol',11)
+			// ->wherenotin('g.id', ['id_defensa'])
+			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
+			// if($request->carrera)
+			// ->where('d.id',$request->carrera)
+			->orderby('apellidos','desc')->paginate(10);
+
+			$resultado= $usuarioCompleto->union($usuarios)->get();
+			return $resultado;		
+		}else{
+		$usuarios=Usuario::identidad($request->ci)
+			->nombres($request->nombre)
+			->apellido($request->apellido)
+			// ->with('usuario_asignar_sub_roles')
+			->join('usuario_asignar_sub_roles as a','a.id_usuario','=','usuarios.id')
+			->join('inscripciones as b','b.id_usuario_asignar_sub_rol','=','a.id')
+			->join('plan_gestion_unidades as c','c.id','=','b.id_plan_gestion_unidad')
+			->join('planes as d','d.id','=','c.id_plan') 
+			->join('inscripcion_grupo_materia_plan_gestion_unidades as e','e.id_inscripcion','=','b.id')
+			->join('estudiante_defensas as f','f.id_inscripcion_grupo_materia_plan_gestion_unidad','=','e.id')
+			->join('defensas as g','g.id','=','f.id_defensa')
+			->join('Modalidad_titulaciones as h','h.id','=','g.id_modalidad_titulacion')
+			->join('unidad_materias as i','i.id_unidad','=','c.id_unidad')
+			->join('materias as j','j.id','=','i.id_materia')
+			->rightJoin('cds as r', 'r.id_defensa','=','g.id')
 			->where('a.id_sub_rol',11)
 			->wherein('h.nombre_modalidad',['proyecto de grado','adscripcion','trabajo dirigido','trabajo de internado','tesis'])
 			// if($request->carrera)
 			->where('d.id',$request->carrera)
 			->orderby('apellidos','desc')->paginate(10);
 			$planes=Plan::all();
-			
+
+
+			// return $usuarios;
 		}// return $planes;
 	   return view('titulacion.registrarCd',compact('usuarios','planes'));
 	}
+
+
+
+
+
+
+
+
+
+
+
 	public function eliminarCd(Request $request){
 		$usuarioLogueado=Usuario_asignar_sub_rol::join('usuarios as a','a.id','=','usuario_asignar_sub_roles.id_usuario')->where('a.id',Auth::user()->id)->where('activo','SI')->select('usuario_asignar_sub_roles.id_unidad')->first();
 		$planOficial=$this->planUsuarioLogueado($usuarioLogueado->id_unidad);
@@ -589,11 +632,11 @@ class TitulacionController extends Controller
 				'miembro1'=>'integer|min:1|different:miembro2,miembro3,presidente,decano',
 				'miembro2'=>'integer|min:1|different:miembro1,miembro3,presidente,decano',
 				'miembro3'=>'integer|min:1|different:miembro1,miembro2,presidente,decano',
-				'presidente'=>'integer|min:1|different:miembro1,miembro2,presidente,decano',
-				'decano'=>'integer|min:1|different:miembro1,miembro2,presidente,decano'
+				'presidente'=>'integer|min:1|different:miembro1,miembro2,miembro3,decano',
+				'decano'=>'integer|min:1|different:miembro1,miembro2,miembro3,presidente'
 			],
 				['required'=>'El miempro tribunal es obligatorio',
-					'min'=>'El campo es obligatorio'
+					'min'=>'El campo es obligatorio' 
 					]);
 
 				$asignar_presidente=new Asignar_funcion_defensa();
@@ -947,13 +990,7 @@ class TitulacionController extends Controller
 		->get();
 		if(!isset($reporte))
 			$reporte='vacio';
-		// if($request->anio!='')
-		// {
-			// return $reporte;
-		// }else{
-			// $gestion="vacio";
-		// }xattr_get(filename, name)
-		// return $request->anio;
+		
 		return view('titulacion.reportesTitulacion',compact('gestiones','reporte'));
 	}
 	public function reporte_mes(Request $request, $anio, $periodo){
@@ -972,6 +1009,7 @@ class TitulacionController extends Controller
 			return $pdf->stream('reporteMes.pdf');
 	}
 	public function reporte_carrera(Request $request, $anio, $periodo){
+
 		$anio = $request->anio;
 		$periodo = $request->periodo;
 		//proyecto de grado
@@ -1014,11 +1052,7 @@ class TitulacionController extends Controller
 			$reporteGenero=DB::table('vista_reporte_titulacion')->where('anio',$request->anio)
 			->select('id_plan','nombre_plan','cod_plan',DB::raw('count(nombre_plan) as cantidad'))
 			->groupBy('nombre_plan','id_plan','cod_plan')
-			->get();
-			
-			
-
-
+			->get();	
 			$planes=Plan::all();
 			$modalidades=Modalidad_titulacion::all();
 			$view = \View::make('titulacion.reportegenero',compact('reporte','anio','periodo','reporteGenero','planes','modalidades'));
@@ -1037,4 +1071,93 @@ class TitulacionController extends Controller
 			return $pdf->stream('reporteLista.pdf');	
 	}
 
+	public function reporte_excel_mes()
+	{
+			// $anio = $request->anio;
+			// $periodo = $request->periodo;
+			$reporteMes=DB::table('vista_reporte_titulacion')->where('anio',2018)->select(DB::raw('count(nombre_plan) as cantidad'),DB::raw('MONTH(fecha_defensa) as mes'),'nombre_plan')->groupBy('mes','nombre_plan')->get();
+			$sumaTotal=$reporteMes->sum('cantidad');
+			$planes = Plan::all();
+			$meses = array('1'=>'Enero','2'=>'Febrero','3'=>'Marzo','4'=>'Abril','5'=>'Mayo','6'=>'Junio','7'=>'Julio','8'=>'Agosto','9'=>'Septiembre','10'=>'Octubre','11'=>'Noviembre','12'=>'Diciembre');
+			// dd($meses);
+
+			Excel::create('Titulados por Mes', function($excel) use ($reporteMes, $planes,$meses,$sumaTotal){
+
+				$excel->sheet('hoja', function($sheet) use ($reporteMes, $planes,$meses,$sumaTotal){
+					
+					$sheet->loadView('titulacion.reporteMesExcel')->with('reporteMes', $reporteMes)->with('planes', $planes)->with('meses', $meses)->with('sumaTotal', $sumaTotal);
+				});
+			})->export('xlsx');
+	}
+
+	public function reporte_excel_carrera()
+	{
+
+		//  $anio = $request->anio;
+		// $periodo = $request->periodo;
+		
+		$planes = Plan::all();
+		$reporteCarrera=DB::table('vista_reporte_titulacion')->where('anio',2018)
+			->select('id_plan','nombre_plan',DB::raw('count(nombre_plan) as cantidad'))
+			->groupBy('nombre_plan','id_plan')
+			->get();
+			// dd($reporteCarrera);
+		$sumaTotal=$reporteCarrera->sum('cantidad');
+
+			Excel::create('Titulados por Carrera', function($excel) use ($planes, $reporteCarrera,$sumaTotal){
+				
+				$excel->sheet('hoja', function($sheet) use ($planes, $reporteCarrera,$sumaTotal){
+					
+					$sheet->loadView('titulacion.reporteCarreraExcel')->with('planes',$planes)->with('reporteCarrera', $reporteCarrera)->with('sumaTotal', $sumaTotal);
+				});
+			})->export('xlsx');
+		
+	}
+
+	public function reporte_excel_modalidad()
+	{		
+			// $anio = $request->anio;
+			// $periodo = $request->periodo;
+			$reporteModalidad=DB::table('vista_reporte_titulacion')->where('anio',2018)
+				->select('id_plan','nombre_modalidad','nombre_plan','cod_plan',DB::raw('count(nombre_modalidad) as cantidad'))
+				->groupBy('nombre_modalidad','nombre_plan','id_plan','cod_plan')
+				->get();
+				 // dd($reporteModalidad);
+			$sumaTotal=$reporteModalidad->sum('cantidad');
+			// return $sumaTotal;	
+			$planes=Plan::all();
+			$modalidades=Modalidad_titulacion::all();
+			Excel::create('Titulados por Modalidad', function($excel) use($reporteModalidad, $planes,$modalidades,$sumaTotal){
+
+				$excel->sheet('hoja', function($sheet) use($reporteModalidad, $planes,$modalidades,$sumaTotal){
+					
+					$sheet->loadView('titulacion.reporteModalidadExcel')->with('planes',$planes)->with('reporteModalidad', $reporteModalidad)->with('modalidades', $modalidades)->with('sumaTotal', $sumaTotal);
+				});
+			})->export('xlsx');
+	}
+ 
+	public function reporte_excel_genero()
+	{
+			// $anio = $request->anio;
+			// $periodo = $request->periodo;
+			$reporteGenero=DB::table('vista_reporte_titulacion')->where('anio',2018)
+			->select('id_plan','nombre_plan','cod_plan','genero',DB::raw('count(genero) as cantidad'))
+			->groupBy('nombre_plan','id_plan','cod_plan','genero')
+			->get();	
+			$sumaTotal=$reporteGenero->sum('cantidad');
+			// dd($reporteGenero);
+			$planes=Plan::all();
+			
+			Excel::create('Titulados por Genero', function($excel) use($reporteGenero, $planes,$sumaTotal){
+
+				$excel->sheet('hoja', function($sheet) use($reporteGenero, $planes,$sumaTotal){
+					
+					$sheet->loadView('titulacion.reporteGeneroExcel')->with('planes',$planes)->with('reporteGenero', $reporteGenero)->with('sumaTotal', $sumaTotal);
+				});
+			})->export('xlsx');
+		
+	}
+
 }
+
+
